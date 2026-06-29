@@ -1,0 +1,202 @@
+/* Jester's CSS Framework File v2 */
+
+:root {
+  /* === SIZE CONTEXT TUNER VARIABLES === */
+
+  /* base variables 
+  - static variables all sizes are based off of */
+  --base-size: 1rem;
+  --base-response: 1vw;
+  --base-static-multiplier: 2.5; /* increase static regular base */
+
+  /* clamp multipliers
+  - determine ratio relative to base to clamp */
+  --lower-clamp-ratio: 0.5;
+  --higher-clamp-ratio: 2;
+
+  /* scale multipliers 
+   - the ratio of scale up/down for every size change */
+  --size-scale-down-ratio: 0.8;
+  --size-scale-up-ratio: 1.2;
+
+  /* === DYANMIC SIZE CONTEXT VARIABLES === */
+
+  --size-rg: clamp(
+    var(--base-size) * var(--lower-clamp-ratio),
+    var(--base-size) + var(--base-response),
+    var(--base-size) * var(--higher-clamp-ratio)
+  );
+
+  /* smaller */
+  --size-sm: calc(var(--size-rg) * var(--size-scale-down-ratio));
+  --size-xs: calc(var(--size-sm) * var(--size-scale-down-ratio));
+  --size-xxs: calc(var(--size-xs) * var(--size-scale-down-ratio));
+  --size-xxxs: calc(var(--size-xxs) * var(--size-scale-down-ratio));
+  /* larger */
+  --size-md: calc(var(--size-rg) * var(--size-scale-up-ratio));
+  --size-lg: calc(var(--size-md) * var(--size-scale-up-ratio));
+  --size-xl: calc(var(--size-lg) * var(--size-scale-up-ratio));
+  --size-xxl: calc(var(--size-xl) * var(--size-scale-up-ratio));
+  --size-xxxl: calc(var(--size-xxl) * var(--size-scale-up-ratio));
+
+  /* === STATIC SIZE CONTEXT VARIABLES === */
+  --size-rg-static: calc(var(--base-size) * var(var(--base-static-multiplier)));
+  /* smaller */
+  --size-sm-static: calc(var(--size-rg-static) * var(--size-scale-down-ratio));
+  --size-xs-static: calc(var(--size-sm-static) * var(--size-scale-down-ratio));
+  --size-xxs-static: calc(var(--size-xs-static) * var(--size-scale-down-ratio));
+  --size-xxxs-static: calc(
+    var(--size-xxs-static) * var(--size-scale-down-ratio)
+  );
+  /* larger */
+  --size-md-static: calc(var(--size-rg-static) * var(--size-scale-up-ratio));
+  --size-lg-static: calc(var(--size-md-static) * var(--size-scale-up-ratio));
+  --size-xl-static: calc(var(--size-lg-static) * var(--size-scale-up-ratio));
+  --size-xxl-static: calc(var(--size-xl-static) * var(--size-scale-up-ratio));
+  --size-xxxl-static: calc(var(--size-xxl-static) * var(--size-scale-up-ratio));
+
+  /* === COLOR SCHEMES === */
+  /* generated through: https://www.realtimecolors.com/ */
+
+  /* light theme (default) */
+  --text-color: #050316;
+  --background-color: #fbfbfe;
+  --primary-color: #2f27ce;
+  --secondary-color: #dddbff;
+  --accent-color: #443dff;
+}
+
+:root[data-theme="dark"] {
+  :root {
+    --text-color: #eae9fc;
+    --background-color: #010104;
+    --primary-color: #3a31d8;
+    --secondary-color: #020024;
+    --accent-color: #0600c2;
+  }
+}
+
+/* === SIZE CONTEXT ACCESSORS */
+
+/* dynamic accesors */
+
+.--context-rg {
+  --size: var(--size-rg);
+}
+
+.--context-sm {
+  --size: var(--size-sm);
+}
+
+.--context-xs {
+  --size: var(--size-xs);
+}
+
+.--context-xxs {
+  --size: var(--size-xxs);
+}
+
+.--context-xxxs {
+  --size: var(--size-xxxs);
+}
+
+.--context-md {
+  --size: var(--size-md);
+}
+
+.--context-lg {
+  --size: var(--size-lg);
+}
+
+.--context-xl {
+  --size: var(--size-xl);
+}
+
+.--context-xxl {
+  --size: var(--size-xxl);
+}
+
+.--context-xxxl {
+  --size: var(--size-xxxl);
+}
+
+/* static accessors */
+
+.--context-rg-static {
+  --size: var(--size-rg-static);
+}
+
+.--context-sm-static {
+  --size: var(--size-sm-static);
+}
+
+.--context-xs-static {
+  --size: var(--size-xs-static);
+}
+
+.--context-xxs-static {
+  --size: var(--size-xxs-static);
+}
+
+.--context-xxxs-static {
+  --size: var(--size-xxxs-static);
+}
+
+.--context-md-static {
+  --size: var(--size-md-static);
+}
+
+.--context-lg-static {
+  --size: var(--size-lg-static);
+}
+
+.--context-xl-static {
+  --size: var(--size-xl-static);
+}
+
+.--context-xxl-static {
+  --size: var(--size-xxl-static);
+}
+
+.--context-xxxl-static {
+  --size: var(--size-xxxl-static);
+}
+
+/* === TEXT HELPERS === */
+
+/* 
+@font-face {
+  font-family: "foo";
+  src:
+    url("") format("woff2"),
+    url("") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
+._text {
+  font-family:
+    var(--font-family), system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: var(--size);
+  font-weight: normal;
+}
+
+/*
+._text._text--foo-font,
+._text ._text--foo-font {
+  --font-family: "foo"
+}
+*/
+
+._text._text--bold,
+._text ._text--bold {
+  font-weight: bold;
+}
+
+._text._text--italic,
+._text ._text--italic {
+  font-style: italic;
+}
