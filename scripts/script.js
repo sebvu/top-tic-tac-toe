@@ -18,50 +18,56 @@ function main() {
   // tic tac toe logic handler
   const gameBoard = (() => {
     const MAX_SPOTS = 9;
-
     const playerOne = Player("Jester", "X");
     const playerTwo = Player("Cristal", "O");
 
-    const getPlayerOne = () => playerOne;
-    const getPlayerTwo = () => playerTwo;
+    let gameArray = new Array(MAX_SPOTS).fill(null);
+    let currPlayer = Math.floor(Math.random() * 10) < 5 ? playerOne : playerTwo; // randomly decide who starts game
 
-    const startGame = () => {
-      let currPlayer = // randomly decide who starts game
-        Math.floor(Math.random() * 10) < 5 ? playerOne : playerTwo;
-      let gameArray = new Array(MAX_SPOTS).fill(null);
+    const checkCompletionFromCell = (index) => {
+      let rowIndex = index % 3;
+      let colIndex = Math.floor(index / 3);
 
-      const checkCompletionFromCell = (index) => {
-        let rowIndex = index % 3;
-        let colIndex = Math.floor(index / 3);
-
-        if (
-          // verify column
-          (gameArray[colIndex * 3] === gameArray[colIndex * 3 + 1] &&
-            gameArray[colIndex * 3 + 1] === gameArray[colIndex * 3 + 2]) ||
-          // verify row
-          (gameArray[0 + rowIndex] === gameArray[3 + rowIndex] &&
-            gameArray[3 + rowIndex] === gameArray[6 + rowIndex])
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      };
-
-      const attemptSelectCell = (index) => {
-        if (gameArray[index] === null) {
-          gameArray[index] = currPlayer.letter;
-          return true;
-        } else {
-          return false;
-        }
-      };
+      if (
+        // verify column
+        (gameArray[colIndex * 3] !== null &&
+          gameArray[colIndex * 3] === gameArray[colIndex * 3 + 1] &&
+          gameArray[colIndex * 3 + 1] === gameArray[colIndex * 3 + 2]) ||
+        // verify row
+        (gameArray[0 + rowIndex] !== null &&
+          gameArray[0 + rowIndex] === gameArray[3 + rowIndex] &&
+          gameArray[3 + rowIndex] === gameArray[6 + rowIndex])
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     };
 
-    return { getPlayerOne, getPlayerTwo, startGame };
-  })();
+    const flipCurrPlayer = () => {
+      currPlayer = currPlayer === playerOne ? playerTwo : playerOne;
+    };
 
-  gameBoard.startGame();
+    const attemptSelectCell = (index) => {
+      if (gameArray[index] === null) {
+        gameArray[index] = currPlayer.getLetter();
+        return true;
+      } else {
+        return false;
+      }
+    };
+
+    const getPlayerOne = () => playerOne;
+    const getPlayerTwo = () => playerTwo;
+    const getGameArray = () => gameArray;
+
+    return {
+      getPlayerOne,
+      getPlayerTwo,
+      getGameArray,
+      attemptSelectCell,
+    };
+  })();
 }
 
 main();
