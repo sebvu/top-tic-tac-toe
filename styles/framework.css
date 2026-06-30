@@ -40,7 +40,7 @@
   --size-xxxl: calc(var(--size-xxl) * var(--size-scale-up-ratio));
 
   /* === STATIC SIZE CONTEXT VARIABLES === */
-  --size-rg-static: calc(var(--base-size) * var(var(--base-static-multiplier)));
+  --size-rg-static: calc(var(--base-size) * var(--base-static-multiplier));
   /* smaller */
   --size-sm-static: calc(var(--size-rg-static) * var(--size-scale-down-ratio));
   --size-xs-static: calc(var(--size-sm-static) * var(--size-scale-down-ratio));
