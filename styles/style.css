@@ -7,7 +7,7 @@ body {
   display: grid;
   grid:
     "header" minmax(min-content, 200px)
-    "main-container" 8fr
+    "main-container" 1fr
     "footer" minmax(min-content, 100px)
     / 1fr;
 
