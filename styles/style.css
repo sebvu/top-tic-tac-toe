@@ -20,6 +20,7 @@ body {
 
 .header {
   grid-area: header;
+
   background-color: red;
 }
 
@@ -29,7 +30,27 @@ body {
 
 .main-container {
   grid-area: main-container;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   background-color: green;
+}
+
+.game-board {
+  display: grid;
+  grid: repeat(3, 1fr) / repeat(3, 1fr);
+  gap: 0.5rem;
+
+  aspect-ratio: 1 / 1;
+  width: auto;
+  height: 60vmin;
+
+  background-color: black;
+}
+
+.game-board__cell {
+  background-color: orange;
 }
 
 /* ========================= */
@@ -38,5 +59,6 @@ body {
 
 .footer {
   grid-area: footer;
+
   background-color: blue;
 }
