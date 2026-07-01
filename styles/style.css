@@ -1,0 +1,42 @@
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  display: grid;
+  grid:
+    "header" minmax(min-content, 200px)
+    "main-container" 8fr
+    "footer" minmax(min-content, 100px)
+    / 1fr;
+
+  height: 100%;
+}
+
+/* ========================= */
+/* Header Styling */
+/* ========================= */
+
+.header {
+  grid-area: header;
+  background-color: red;
+}
+
+/* ========================= */
+/* Main Container Styling */
+/* ========================= */
+
+.main-container {
+  grid-area: main-container;
+  background-color: green;
+}
+
+/* ========================= */
+/* Footer Styling */
+/* ========================= */
+
+.footer {
+  grid-area: footer;
+  background-color: blue;
+}
