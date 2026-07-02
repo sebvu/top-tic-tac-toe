@@ -20,8 +20,41 @@ body {
 
 .header {
   grid-area: header;
+  display: flex;
+  justify-content: center;
 
   background-color: red;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+
+  width: clamp(var(--mobile-threshold), 80%, 2000px);
+  height: auto;
+}
+
+.dashboard__part {
+  background-color: cyan;
+}
+
+.dashboard__left,
+.dashboard__right {
+  flex: initial;
+  width: 100px;
+}
+
+.dashboard__left {
+  background-image: linear-gradient(to top right, red 50%, cyan 50%);
+}
+
+.dashboard__right {
+  background-image: linear-gradient(to top left, red 50%, cyan 50%);
+}
+
+.dashboard__main {
+  flex: 6;
 }
 
 /* ========================= */

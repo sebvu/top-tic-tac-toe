@@ -6,12 +6,19 @@
     <link rel="stylesheet" href="./styles/reset.css" />
     <link rel="stylesheet" href="./styles/framework.css" />
     <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/mobile-style.css" />
     <script src="./scripts/script.js"></script>
     <title>Jester's Tic Tac Toe</title>
   </head>
   <body>
     <div class="wrapper">
-      <div class="header"></div>
+      <header class="header">
+        <div class="dashboard">
+          <div class="dashboard__part dashboard__left"></div>
+          <div class="dashboard__part dashboard__main"></div>
+          <div class="dashboard__part dashboard__right"></div>
+        </div>
+      </header>
       <div class="main-container">
         <div class="game-board">
           <div class="game-board__cell">
@@ -43,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class="footer"></div>
+      <footer class="footer"></footer>
     </div>
   </body>
 </html>

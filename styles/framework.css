@@ -55,6 +55,10 @@
   --size-xxl-static: calc(var(--size-xl-static) * var(--size-scale-up-ratio));
   --size-xxxl-static: calc(var(--size-xxl-static) * var(--size-scale-up-ratio));
 
+  /* === MOBILE THRESHOLDS === */
+
+  --mobile-threshold: 800px;
+
   /* === COLOR SCHEMES === */
   /* generated through: https://www.realtimecolors.com/ */
 

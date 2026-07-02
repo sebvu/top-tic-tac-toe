@@ -1,0 +1,7 @@
+@media (max-width: 800px) {
+  /* --mobile-threshold */
+  .dashboard__left,
+  .dashboard__right {
+    display: none;
+  }
+}
