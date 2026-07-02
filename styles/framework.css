@@ -1,5 +1,7 @@
 /* Jester's CSS Framework File v2 */
 
+@import url("https://fonts.googleapis.com/css?family=LXGW%20WenKai%20TC:700|LXGW%20WenKai%20TC:400");
+
 :root {
   /* === SIZE CONTEXT TUNER VARIABLES === */
 
@@ -63,21 +65,19 @@
   /* generated through: https://www.realtimecolors.com/ */
 
   /* light theme (default) */
-  --text-color: #050316;
-  --background-color: #fbfbfe;
-  --primary-color: #2f27ce;
-  --secondary-color: #dddbff;
-  --accent-color: #443dff;
+  --text: #27070e;
+  --background: #fbeaef;
+  --primary: #78172a;
+  --secondary: #c0e67f;
+  --accent: #40ce27;
 }
 
 :root[data-theme="dark"] {
-  :root {
-    --text-color: #eae9fc;
-    --background-color: #010104;
-    --primary-color: #3a31d8;
-    --secondary-color: #020024;
-    --accent-color: #0600c2;
-  }
+  --text: #f8d8df;
+  --background: #150409;
+  --primary: #e8879a;
+  --secondary: #5a8019;
+  --accent: #4ad831;
 }
 
 /* === SIZE CONTEXT ACCESSORS */
@@ -168,18 +168,6 @@
 
 /* === TEXT HELPERS === */
 
-/* 
-@font-face {
-  font-family: "foo";
-  src:
-    url("") format("woff2"),
-    url("") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-*/
-
 ._text {
   font-family:
     var(--font-family), system-ui, "Segoe UI", Roboto, Helvetica, Arial,
@@ -188,12 +176,10 @@
   font-weight: normal;
 }
 
-/*
-._text._text--foo-font,
-._text ._text--foo-font {
-  --font-family: "foo"
+._text._text--body-font,
+._text ._text--body-font {
+  --font-family: "LXGW WenKai TC";
 }
-*/
 
 ._text._text--bold,
 ._text ._text--bold {

@@ -21,22 +21,23 @@ body {
 .header {
   grid-area: header;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
 
-  background-color: red;
+  background-color: var(--background);
 }
 
+/* dashboard styling */
+
 .dashboard {
+  flex: auto;
   display: flex;
   justify-content: center;
   align-items: stretch;
 
-  width: clamp(var(--mobile-threshold), 80%, 2000px);
+  width: clamp(var(--mobile-threshold), 90%, 2000px);
   height: auto;
-}
-
-.dashboard__part {
-  background-color: cyan;
 }
 
 .dashboard__left,
@@ -45,16 +46,60 @@ body {
   width: 100px;
 }
 
-.dashboard__left {
-  background-image: linear-gradient(to top right, red 50%, cyan 50%);
-}
-
-.dashboard__right {
-  background-image: linear-gradient(to top left, red 50%, cyan 50%);
-}
-
 .dashboard__main {
   flex: 6;
+}
+
+/* dashboard-footer styling */
+
+.dashboard-footer__part {
+  background-color: var(--primary);
+}
+
+.dashboard-footer {
+  display: flex;
+
+  width: auto;
+  height: min-content;
+}
+
+.dashboard-footer__left,
+.dashboard-footer__right {
+  flex: initial;
+  width: 20px;
+}
+
+.dashboard-footer__main {
+  padding: 0 1rem;
+}
+
+.dashboard-footer__header {
+  color: var(--text-color);
+}
+
+/* mixed dashboard and dashboard-footer styling */
+
+.dashboard__part,
+.dashboard-footer__part {
+  background-color: var(--primary);
+}
+
+.dashboard__right,
+.dashboard-footer__right {
+  background-image: linear-gradient(
+    to top left,
+    var(--background) 50%,
+    var(--primary) 50%
+  );
+}
+
+.dashboard__left,
+.dashboard-footer__left {
+  background-image: linear-gradient(
+    to top right,
+    var(--background) 50%,
+    var(--primary) 50%
+  );
 }
 
 /* ========================= */
@@ -67,7 +112,7 @@ body {
   justify-content: center;
   align-items: center;
 
-  background-color: green;
+  background-color: var(--background);
 }
 
 .game-board {
@@ -79,11 +124,11 @@ body {
   width: auto;
   height: 60vmin;
 
-  background-color: black;
+  background-color: var(--text);
 }
 
 .game-board__cell {
-  background-color: orange;
+  background-color: var(--background);
 }
 
 /* ========================= */
@@ -93,5 +138,5 @@ body {
 .footer {
   grid-area: footer;
 
-  background-color: blue;
+  background-color: var(--primary);
 }
