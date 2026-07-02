@@ -22,6 +22,10 @@
   .dialog {
     width: calc(var(--size) * 18);
   }
+
+  .game-board {
+    height: 75vmin;
+  }
 }
 
 @media (max-width: 500px) {
@@ -47,6 +51,10 @@
   .profile-left__score-container {
     justify-content: center;
     align-items: center;
+  }
+
+  .game-board {
+    height: 90vmin;
   }
 
   .dialog {
