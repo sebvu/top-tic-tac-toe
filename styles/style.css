@@ -3,6 +3,16 @@ body {
   height: 100%;
 }
 
+a:link,
+a:visited {
+  color: var(--accent-color);
+}
+
+a:hover,
+a:active {
+  color: var(--secondary-color);
+}
+
 .wrapper {
   display: grid;
   grid:
@@ -104,6 +114,8 @@ body {
   width: calc(var(--size) * 2.5);
   height: auto;
 
+  background-color: var(--secondary-color);
+
   border-radius: 50%;
   border: 2px solid var(--accent-color);
 
@@ -166,6 +178,8 @@ body {
   aspect-ratio: 1 / 1;
   width: calc(var(--size) * 2.5);
   height: auto;
+
+  background-color: var(--secondary-color);
 
   border-radius: 50%;
   border: 2px solid var(--accent-color);
@@ -302,6 +316,13 @@ body {
 
 .footer {
   grid-area: footer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   background-color: var(--primary-color);
+}
+
+.footer__text {
+  text-align: center;
 }
