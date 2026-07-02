@@ -12,9 +12,34 @@ function Player(name, letter) {
   return { getName, getLetter, getScore, increaseScore };
 }
 
-const UIController = (() => {})();
-
 function main() {
+  // UI handler
+  const UIController = (() => {
+    const STORAGE_THEME_NAME = "theme";
+    const THEME_ATTR = "data-theme";
+    const themeToggler = document.querySelector(
+      ".dashboard-footer__theme-button",
+    );
+    const rootElement = document.documentElement;
+
+    // functions
+    const setPreviousTheme = () => {
+      const storedTheme = localStorage.getItem(STORAGE_THEME_NAME);
+      if (storedTheme) rootElement.setAttribute(THEME_ATTR, storedTheme);
+    };
+
+    // event listeners
+    themeToggler.addEventListener("click", () => {
+      const newTheme =
+        rootElement.getAttribute(THEME_ATTR) === "light" ? "dark" : "light";
+
+      rootElement.setAttribute(THEME_ATTR, newTheme);
+      localStorage.setItem(STORAGE_THEME_NAME, newTheme);
+    });
+
+    return { setPreviousTheme };
+  })();
+
   // tic tac toe logic handler
   const gameBoard = (() => {
     const MAX_SPOTS = 9;
@@ -68,6 +93,8 @@ function main() {
       attemptSelectCell,
     };
   })();
+
+  UIController.setPreviousTheme();
 }
 
 main();

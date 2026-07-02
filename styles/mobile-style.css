@@ -1,5 +1,10 @@
 @media (max-width: 800px) {
   /* --mobile-threshold */
+
+  :root {
+    --base-size: 0.75rem;
+  }
+
   .dashboard__left,
   .dashboard__right {
     display: none;
@@ -7,7 +12,7 @@
 
   .wrapper {
     grid:
-      "header" minmax(min-content, 150px)
+      "header" minmax(min-content, 180px)
       "main-container" 1fr
       "footer" minmax(min-content, 80px)
       / 1fr;

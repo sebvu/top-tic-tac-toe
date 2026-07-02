@@ -65,19 +65,21 @@
   /* generated through: https://www.realtimecolors.com/ */
 
   /* light theme (default) */
-  --text: #27070e;
-  --background: #fbeaef;
-  --primary: #78172a;
-  --secondary: #c0e67f;
-  --accent: #40ce27;
+  --text-color: #27070e;
+  --text-opposite-color: #f8d8df;
+  --background-color: #fbeaef;
+  --primary-color: #78172a;
+  --secondary-color: #c0e67f;
+  --accent-color: #40ce27;
 }
 
 :root[data-theme="dark"] {
-  --text: #f8d8df;
-  --background: #150409;
-  --primary: #e8879a;
-  --secondary: #5a8019;
-  --accent: #4ad831;
+  --text-color: #f8d8df;
+  --text-opposite-color: #27070e;
+  --background-color: #150409;
+  --primary-color: #e8879a;
+  --secondary-color: #5a8019;
+  --accent-color: #4ad831;
 }
 
 /* === SIZE CONTEXT ACCESSORS */

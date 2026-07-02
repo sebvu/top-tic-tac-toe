@@ -6,7 +6,7 @@ body {
 .wrapper {
   display: grid;
   grid:
-    "header" minmax(min-content, 200px)
+    "header" minmax(min-content, 250px)
     "main-container" 1fr
     "footer" minmax(min-content, 100px)
     / 1fr;
@@ -25,7 +25,8 @@ body {
   justify-content: stretch;
   align-items: center;
 
-  background-color: var(--background);
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* dashboard styling */
@@ -53,7 +54,7 @@ body {
 /* dashboard-footer styling */
 
 .dashboard-footer__part {
-  background-color: var(--primary);
+  background-color: var(--primary-color);
 }
 
 .dashboard-footer {
@@ -70,26 +71,55 @@ body {
 }
 
 .dashboard-footer__main {
-  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 0 1rem 0.5rem;
 }
 
 .dashboard-footer__header {
   color: var(--text-color);
 }
 
+.dashboard-footer__theme-button {
+  all: unset;
+
+  flex: none;
+
+  width: var(--size);
+
+  fill: var(--text-color);
+
+  transition-duration: 0.2s;
+}
+
+.dashboard-footer__theme-button:focus,
+.dashboard-footer__theme-button:hover {
+  fill: var(--text-opposite-color);
+
+  cursor: pointer;
+  transform: scale(1.2, 1.2);
+}
+
+.dashboard-footer__theme-icon {
+  pointer-events: none;
+}
+
 /* mixed dashboard and dashboard-footer styling */
 
 .dashboard__part,
 .dashboard-footer__part {
-  background-color: var(--primary);
+  background-color: var(--primary-color);
 }
 
 .dashboard__right,
 .dashboard-footer__right {
   background-image: linear-gradient(
     to top left,
-    var(--background) 50%,
-    var(--primary) 50%
+    var(--background-color) 50%,
+    var(--primary-color) 50%
   );
 }
 
@@ -97,8 +127,8 @@ body {
 .dashboard-footer__left {
   background-image: linear-gradient(
     to top right,
-    var(--background) 50%,
-    var(--primary) 50%
+    var(--background-color) 50%,
+    var(--primary-color) 50%
   );
 }
 
@@ -112,7 +142,7 @@ body {
   justify-content: center;
   align-items: center;
 
-  background-color: var(--background);
+  background-color: var(--background-color);
 }
 
 .game-board {
@@ -124,11 +154,11 @@ body {
   width: auto;
   height: 60vmin;
 
-  background-color: var(--text);
+  background-color: var(--text-color);
 }
 
 .game-board__cell {
-  background-color: var(--background);
+  background-color: var(--background-color);
 }
 
 /* ========================= */
@@ -138,5 +168,5 @@ body {
 .footer {
   grid-area: footer;
 
-  background-color: var(--primary);
+  background-color: var(--primary-color);
 }
