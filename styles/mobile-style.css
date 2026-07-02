@@ -53,3 +53,13 @@
     width: 90%;
   }
 }
+
+@media (max-height: 450px) {
+  :root {
+    --base-size: 0.4rem;
+  }
+
+  .game-board {
+    height: 45vmin;
+  }
+}
