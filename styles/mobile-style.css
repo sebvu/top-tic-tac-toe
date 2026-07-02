@@ -1,8 +1,10 @@
-@media (max-width: 800px) {
-  /* --mobile-threshold */
-
+@media (max-width: 1200px) {
   :root {
-    --base-size: 0.75rem;
+    --base-size: 0.6rem;
+  }
+
+  .dashboard {
+    width: 100%;
   }
 
   .dashboard__left,
@@ -12,9 +14,35 @@
 
   .wrapper {
     grid:
-      "header" minmax(min-content, 180px)
+      "header" minmax(min-content, 150px)
       "main-container" 1fr
       "footer" minmax(min-content, 80px)
       / 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .profile-right {
+    grid:
+      "image" 2fr
+      "user-name" 1fr
+      "score" 1fr
+      / 1fr;
+  }
+
+  .profile-left {
+    grid:
+      "image" 2fr
+      "user-name" 1fr
+      "score" 1fr
+      / 1fr;
+  }
+
+  .profile-right__user-name-container,
+  .profile-right__score-container,
+  .profile-left__user-name-container,
+  .profile-left__score-container {
+    justify-content: center;
+    align-items: center;
   }
 }

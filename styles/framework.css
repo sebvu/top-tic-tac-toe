@@ -1,6 +1,7 @@
 /* Jester's CSS Framework File v2 */
 
 @import url("https://fonts.googleapis.com/css?family=LXGW%20WenKai%20TC:700|LXGW%20WenKai%20TC:400");
+@import url("https://fonts.googleapis.com/css?family=Playwrite%20CL:700|Playwrite%20CL:400");
 
 :root {
   /* === SIZE CONTEXT TUNER VARIABLES === */
@@ -66,20 +67,24 @@
 
   /* light theme (default) */
   --text-color: #27070e;
-  --text-opposite-color: #f8d8df;
   --background-color: #fbeaef;
   --primary-color: #78172a;
   --secondary-color: #c0e67f;
   --accent-color: #40ce27;
+
+  --text-opposite-color: #f8d8df;
+  --background-opposite-color: #150409;
 }
 
 :root[data-theme="dark"] {
   --text-color: #f8d8df;
-  --text-opposite-color: #27070e;
   --background-color: #150409;
   --primary-color: #e8879a;
   --secondary-color: #5a8019;
   --accent-color: #4ad831;
+
+  --text-opposite-color: #27070e;
+  --background-opposite-color: #fbeaef;
 }
 
 /* === SIZE CONTEXT ACCESSORS */
@@ -178,9 +183,14 @@
   font-weight: normal;
 }
 
-._text._text--body-font,
-._text ._text--body-font {
+._text._text--normal-font,
+._text ._text--normal-font {
   --font-family: "LXGW WenKai TC";
+}
+
+._text._text--header-font,
+._text ._text--header-font {
+  --font-family: "Playwrite CL";
 }
 
 ._text._text--bold,

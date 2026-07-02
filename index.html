@@ -15,15 +15,70 @@
       <header class="header">
         <div class="dashboard">
           <div class="dashboard__part dashboard__left"></div>
-          <div class="dashboard__part dashboard__main"></div>
+          <div class="dashboard__part dashboard__main --context-lg">
+            <!-- ... -->
+            <div class="profile-left">
+              <div class="profile-left__image-container-container">
+                <div class="profile-left__image-container">
+                  <img
+                    src="./assets/icons/player-one.png"
+                    class="profile-left__image"
+                    alt="Player One Icon"
+                  />
+                </div>
+              </div>
+              <div class="profile-left__user-name-container">
+                <p
+                  class="profile-left__user-name _text _text--bold _text--normal-font"
+                >
+                  Player Oneeee
+                </p>
+              </div>
+              <div class="profile-left__score-container">
+                <p
+                  class="profile-left__score _text _text--bold _text--normal-font --context-rg"
+                >
+                  0
+                </p>
+              </div>
+            </div>
+            <!-- ... -->
+            <div class="profile-right">
+              <div class="profile-right__image-container-container">
+                <div class="profile-right__image-container">
+                  <img
+                    src="./assets/icons/player-two.png"
+                    class="profile-right__image"
+                    alt="Player Two Icon"
+                  />
+                </div>
+              </div>
+              <div class="profile-right__user-name-container">
+                <p
+                  class="profile-right__user-name _text _text--bold _text--normal-font"
+                >
+                  Player Twoooo
+                </p>
+              </div>
+              <div class="profile-right__score-container">
+                <p
+                  class="profile-right__score _text _text--bold _text--normal-font --context-rg"
+                >
+                  0
+                </p>
+              </div>
+            </div>
+            <!-- ... -->
+          </div>
           <div class="dashboard__part dashboard__right"></div>
         </div>
         <div class="dashboard-footer">
-          <div class="dashboard-footer__part dashboard-footer__left"></div>
           <div class="dashboard-footer__part dashboard-footer__main">
-            <button class="dashboard-footer__theme-button --context-xl">
+            <button
+              class="dashboard-footer__button dashboard-footer__button--theme --context-xl"
+            >
               <svg
-                class="dashboard-footer__theme-icon"
+                class="dashboard-footer__icon"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
               >
@@ -33,15 +88,51 @@
               </svg>
             </button>
             <h1
-              class="dashboard-footer__header _text _text--bold _text--body-font --context-md"
+              class="dashboard-footer__header _text _text--bold _text--header-font --context-md"
             >
               Sebvu's Tic Tac Toe
             </h1>
+            <button
+              class="dashboard-footer__button dashboard--footer__button--start --context-xl"
+            >
+              <svg
+                class="dashboard-footer__icon"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 455.896 455.896"
+                xml:space="preserve"
+              >
+                <g>
+                  <path
+                    d="M432.458,330.806c8.794,0,15.926-7.132,15.926-15.926c0-8.794-7.132-15.926-15.926-15.926H331.599V155.62h100.859
+		c8.794,0,15.926-7.132,15.926-15.926c0-8.794-7.132-15.926-15.926-15.926H331.599V22.909c0-8.796-7.132-15.926-15.926-15.926
+		c-8.796,0-15.926,7.13-15.926,15.926v100.859H156.414V22.902c0-8.794-7.132-15.926-15.926-15.926
+		c-8.796,0-15.926,7.132-15.926,15.926v100.867H23.695c-8.794,0-15.926,7.132-15.926,15.926c0,8.794,7.132,15.926,15.926,15.926
+		h100.867v143.333H23.695c-8.794,0-15.926,7.132-15.926,15.926c0,8.794,7.132,15.926,15.926,15.926h100.867v100.859
+		c0,8.796,7.13,15.926,15.926,15.926c8.794,0,15.926-7.13,15.926-15.926V330.806h143.333v100.867c0,8.794,7.13,15.926,15.926,15.926
+		c8.794,0,15.926-7.132,15.926-15.926V330.806H432.458z M156.414,298.954V155.62h143.333v143.333H156.414z"
+                  />
+                  <path
+                    d="M27.652,106.497l25.235-25.241l25.235,25.241c3.11,3.11,7.184,4.666,11.26,4.666c4.075,0,8.149-1.556,11.26-4.666
+		c6.222-6.213,6.222-16.299,0-22.519L75.408,58.735l25.233-25.243c6.222-6.221,6.222-16.306,0-22.519
+		c-6.221-6.221-16.299-6.221-22.519,0L52.887,36.214L27.652,10.973c-6.221-6.221-16.299-6.221-22.519,0
+		c-6.222,6.213-6.222,16.299,0,22.519l25.233,25.243L5.133,83.977c-6.222,6.221-6.222,16.307,0,22.519
+		c3.11,3.11,7.184,4.666,11.26,4.666C20.468,111.163,24.542,109.607,27.652,106.497z"
+                  />
+                  <path
+                    d="M228.072,117.47c32.389,0,58.735-26.346,58.735-58.735C286.807,26.346,260.461,0,228.072,0
+		c-32.389,0-58.735,26.346-58.735,58.735C169.337,91.123,195.684,117.47,228.072,117.47z M228.072,31.852
+		c14.822,0,26.883,12.061,26.883,26.883c0,14.822-12.061,26.883-26.883,26.883c-14.822,0-26.883-12.061-26.883-26.883
+		C201.189,43.913,213.25,31.852,228.072,31.852z"
+                  />
+                </g>
+              </svg>
+            </button>
           </div>
-          <div class="dashboard-footer__part dashboard-footer__right"></div>
         </div>
       </header>
-      <div class="main-container">
+      <section class="main-container">
         <div class="game-board">
           <div class="game-board__cell">
             <a class="game-board__cell-one"></a>
@@ -71,7 +162,7 @@
             <a class="game-board__cell-nine"></a>
           </div>
         </div>
-      </div>
+      </section>
       <footer class="footer"></footer>
     </div>
   </body>
