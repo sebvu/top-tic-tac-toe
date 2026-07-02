@@ -3,6 +3,13 @@
     --base-size: 0.6rem;
   }
 
+  .wrapper {
+    grid:
+      "header" minmax(min-content, 150px)
+      "main-container" 1fr
+      "footer" minmax(min-content, 80px)
+      / 1fr;
+  }
   .dashboard {
     width: 100%;
   }
@@ -12,12 +19,8 @@
     display: none;
   }
 
-  .wrapper {
-    grid:
-      "header" minmax(min-content, 150px)
-      "main-container" 1fr
-      "footer" minmax(min-content, 80px)
-      / 1fr;
+  .dialog {
+    width: calc(var(--size) * 18);
   }
 }
 
@@ -44,5 +47,9 @@
   .profile-left__score-container {
     justify-content: center;
     align-items: center;
+  }
+
+  .dialog {
+    width: 90%;
   }
 }

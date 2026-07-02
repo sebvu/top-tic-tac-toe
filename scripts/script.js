@@ -16,27 +16,56 @@ function Player(name, letter) {
 const UIController = (() => {
   const STORAGE_THEME_NAME = "theme";
   const THEME_ATTR = "data-theme";
-  const themeToggler = document.querySelector(
-    ".dashboard-footer__button--theme",
-  );
-  const rootElement = document.documentElement;
 
-  // functions
-  const setPreviousTheme = () => {
-    const storedTheme = localStorage.getItem(STORAGE_THEME_NAME);
-    if (storedTheme) rootElement.setAttribute(THEME_ATTR, storedTheme);
+  // private functions
+
+  const getBaseDialog = () => {
+    const dialog = document.createElement("dialog");
+
+    dialog.classList.add(...["dialog", "--context-md"]);
+    dialog.setAttribute("popover", "");
+
+    // ensure dialog removal when closed
+    dialog.addEventListener("close", () => {
+      dialog.remove();
+    });
+
+    return dialog;
   };
 
-  // event listeners
-  themeToggler.addEventListener("click", () => {
+  const setDialogInDOM = (dialog) => {
+    const body = document.querySelector("body");
+
+    body.appendChild(dialog);
+  }
+
+  // public functions
+
+  const setPreviousTheme = () => {
+    const storedTheme = localStorage.getItem(STORAGE_THEME_NAME);
+    if (storedTheme)
+      document.documentElement.setAttribute(THEME_ATTR, storedTheme);
+  };
+
+  const toggleTheme = () => {
     const newTheme =
-      rootElement.getAttribute(THEME_ATTR) === "light" ? "dark" : "light";
+      document.documentElement.getAttribute(THEME_ATTR) === "light"
+        ? "dark"
+        : "light";
 
-    rootElement.setAttribute(THEME_ATTR, newTheme);
+    document.documentElement.setAttribute(THEME_ATTR, newTheme);
     localStorage.setItem(STORAGE_THEME_NAME, newTheme);
-  });
+  };
 
-  return { setPreviousTheme };
+  const getStartGameDialog = () => {
+    const dialog = getBaseDialog();
+
+    setDialogInDOM(dialog);
+
+    return dialog;
+  };
+
+  return { setPreviousTheme, toggleTheme, getStartGameDialog };
 })();
 
 // tic tac toe logic handler
@@ -94,7 +123,25 @@ const gameBoard = (() => {
 })();
 
 function main() {
+  const themeToggler = document.querySelector(
+    ".dashboard-footer__button--theme",
+  );
+  const startGameButton = document.querySelector(
+    ".dashboard-footer__button--start",
+  );
+
   UIController.setPreviousTheme();
+
+  // === event listeners ===
+  themeToggler.addEventListener("click", () => {
+    UIController.toggleTheme();
+  });
+
+  startGameButton.addEventListener("click", () => {
+    const startGameDialog = UIController.getStartGameDialog();
+
+    startGameDialog.showModal();
+  });
 }
 
 main();
