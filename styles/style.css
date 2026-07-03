@@ -3,16 +3,6 @@ body {
   height: 100%;
 }
 
-a:link,
-a:visited {
-  color: var(--accent-color);
-}
-
-a:hover,
-a:active {
-  color: var(--secondary-color);
-}
-
 .wrapper {
   display: grid;
   grid:
@@ -291,6 +281,12 @@ a:active {
   pointer-events: none;
 }
 
+.dashboard-footer__button--start {
+  animation-name: glowingSvgIcon;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
 /* mixed dashboard and dashboard-footer styling */
 
 .dashboard__part,
@@ -308,13 +304,15 @@ a:active {
   align-items: center;
   gap: 1rem;
 
-  width: calc(var(--size) * 12);
+  width: calc(var(--size) * 15);
   height: clamp(320px, 50vh, 600px);
   padding: 1.5rem;
+  padding-bottom: 2.5rem;
 
+  color: var(--text-color);
   background-color: var(--background-color);
   border: 5px solid var(--accent-color);
-  border-radius: 1rem;
+  border-radius: 50% / 10%;
 
   box-shadow: 0 0 0.8rem rgb(from var(--background-opposite-color) r g b / 50%);
 
@@ -323,6 +321,66 @@ a:active {
 
 .dialog::backdrop {
   background-color: rgb(from var(--background-opposite-color) r g b / 20%);
+}
+
+.dialog__header,
+.dialog__please {
+  flex: none;
+}
+
+.dialog__please-span {
+  color: var(--required-form-color);
+}
+
+.dialog__form {
+  flex: auto;
+  align-self: stretch;
+  display: grid;
+  grid:
+    "player-one player-two" 3fr
+    "settings settings" 1fr
+    / 1fr 1fr;
+
+  min-width: 0;
+  min-height: 0;
+}
+
+.dialog__form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog__form-container--player-one {
+  grid-area: player-one;
+}
+
+.dialog__form-container--player-two {
+  grid-area: player-two;
+}
+
+.dialog__form-container--settings {
+  grid-area: settings;
+}
+
+.dialog__image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  aspect-ratio: 1 / 1;
+  width: calc(var(--size) * 2.5);
+  height: auto;
+
+  background-color: var(--secondary-color);
+
+  border-radius: 50%;
+  border: 2px solid var(--accent-color);
+
+  overflow: hidden;
+}
+
+.dialog__image {
+  object-fit: cover;
 }
 
 /* ========================= */
@@ -337,6 +395,7 @@ a:active {
 
   padding: 2rem 0;
 
+  color: var(--text-color);
   background-color: var(--background-color);
 }
 
@@ -352,8 +411,16 @@ a:active {
   background-color: var(--text-color);
 }
 
-.game-board__cell {
+.game-board__cell-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   background-color: var(--background-color);
+}
+
+.game-board__cell {
+  --size: 18vmin;
 }
 
 /* ========================= */
@@ -371,4 +438,14 @@ a:active {
 
 .footer__text {
   text-align: center;
+}
+
+.footer__link:link,
+.footer__link:visited {
+  color: var(--accent-color);
+}
+
+.footer__link:hover,
+.footer__link:active {
+  color: var(--secondary-color);
 }
