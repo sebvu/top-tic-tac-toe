@@ -198,3 +198,17 @@
 ._text ._text--italic {
   font-style: italic;
 }
+
+/* === PROJECT ANIMATIONS === */
+
+@keyframes glowingSvgIcon {
+  0% {
+    fill: var(--text-color);
+  }
+  50% {
+    fill: var(--secondary-color);
+  }
+  100% {
+    fill: var(--text-color);
+  }
+}
