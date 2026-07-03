@@ -83,8 +83,31 @@ a:active {
 
 .profile-left,
 .profile-right {
+  flex: 2;
+}
+
+.game-status {
   flex: 1;
 }
+
+/* game status styling */
+
+.game-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 1rem 0;
+
+  border-left: 3px solid var(--accent-color);
+  border-radius: 10% / 50%;
+  border-right: 3px solid var(--accent-color);
+}
+
+.game-status__text {
+  text-align: center;
+}
+
 
 /* dashboard main profile left */
 
