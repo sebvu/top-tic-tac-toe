@@ -29,12 +29,22 @@
 }
 
 @media (max-width: 500px) {
+  :root {
+    --base-size: 0.5rem;
+  }
+
+  .dashboard-footer__part--header {
+    display: none;
+  }
+
   .profile-right {
     grid:
       "image" 2fr
       "user-name" 1fr
       "score" 1fr
       / 1fr;
+      
+    padding-right: 1rem;
   }
 
   .profile-left {
@@ -43,13 +53,21 @@
       "user-name" 1fr
       "score" 1fr
       / 1fr;
+
+    padding-left: 1rem;
   }
 
+  .profile-right__image-container-container,
   .profile-right__user-name-container,
-  .profile-right__score-container,
+  .profile-right__score-container {
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .profile-left__image-container-container,
   .profile-left__user-name-container,
   .profile-left__score-container {
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
 

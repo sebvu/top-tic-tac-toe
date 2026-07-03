@@ -220,22 +220,19 @@ a:active {
 
 /* dashboard-footer styling */
 
-.dashboard-footer__part {
-  background-color: var(--primary-color);
-}
-
 .dashboard-footer {
   display: flex;
+  gap: 3rem;
 
   width: auto;
   height: min-content;
 }
 
-.dashboard-footer__main {
+.dashboard-footer__part {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
 
   padding: 0 2rem 0.5rem;
 
