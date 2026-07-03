@@ -43,7 +43,7 @@
             </div>
             <div class="game-status">
               <p class="game-status__text _text _text--normal-font">
-                N/A
+                START GAME
               </p>
             </div>
             <div class="profile-right">
@@ -138,34 +138,34 @@
           </div>
         </div>
       </header>
-      <section class="main-container">
-        <div class="game-board">
-          <div class="game-board__cell">
-            <a class="game-board__cell-one"></a>
+      <section class="main-container --context-xxxl">
+        <div class="game-board _text _text--normal-font">
+          <div tabindex="0" class="game-board__cell-container">
+            <a class="game-board__cell game-board__cell--one">T</a>
           </div>
-          <div class="game-board__cell">
-            <a class="game-board__cell-two"></a>
+          <div tabindex="0" class="game-board__cell-container">
+            <a class="game-board__cell game-board__cell--two">I</a>
           </div>
-          <div class="game-board__cell">
-            <a class="game-board__cell-three"></a>
+          <div tabindex="0" class="game-board__cell-container">
+            <a class="game-board__cell game-board__cell--three">C</a>
           </div>
-          <div class="game-board__cell">
-            <a class="game-board__cell-four"></a>
+          <div tabindex="0" class="game-board__cell-container">
+            <a class="game-board__cell game-board__cell--four">T</a>
           </div>
-          <div class="game-board__cell">
-            <a class="game-board__cell-five"></a>
+          <div tabindex="0" class="game-board__cell-container">
+            <a class="game-board__cell game-board__cell--five">A</a>
           </div>
-          <div class="game-board__cell">
-            <a class="game-board__cell-six"></a>
+          <div tabindex="0" class="game-board__cell-container">
+            <a class="game-board__cell game-board__cell--six">C</a>
           </div>
-          <div class="game-board__cell">
-            <a class="game-board__cell-seven"></a>
+          <div tabindex="0" class="game-board__cell-container">
+            <a class="game-board__cell game-board__cell--seven">T</a>
           </div>
-          <div class="game-board__cell">
-            <a class="game-board__cell-eight"></a>
+          <div tabindex="0" class="game-board__cell-container">
+            <a class="game-board__cell game-board__cell--eight">O</a>
           </div>
-          <div class="game-board__cell">
-            <a class="game-board__cell-nine"></a>
+          <div tabindex="0" class="game-board__cell-container">
+            <a class="game-board__cell game-board__cell--nine">E</a>
           </div>
         </div>
       </section>
@@ -173,12 +173,14 @@
         <p class="footer__text _text _text--normal-font --context-rg">
           ❤️ Made with Love by
           <a
+            class="footer__link"
             href="https://github.com/sebvu/top-tic-tac-toe"
             target="_blank"
             rel="noreferrer"
             >Sebvu</a
           >, courtesy of
           <a
+            class="footer__link"
             href="https://www.theodinproject.com"
             target="_blank"
             rel="noreferrer"
@@ -188,6 +190,128 @@
         </p>
       </footer>
     </div>
-    <!-- <dialog class="dialog --context-md" popover></dialog> -->
+    <dialog class="dialog --context-md" popover>
+      <h1 class="dialog__header _text _text--header-font _text--bold">
+        Create Game
+      </h1>
+      <p class="dialog__please _text _text--normal-font --context-sm">
+        Please fill all required (<span class="dialog__please-span">*</span>)
+        fields.
+      </p>
+      <form class="dialog__form" action="" method="post">
+        <div class="dialog__form-container dialog__form-container--player-one">
+          <div class="dialog__image-container">
+            <img
+              class="dialog__image"
+              src="./assets/icons/player-one.png"
+              alt="Player One Icon"
+            />
+          </div>
+          <p>
+            <label for="avatar-one"></label>
+            <input
+              type="file"
+              id="avatar-one"
+              name="avatar_one"
+              accept="image/*.png, image/*.jpeg, image/*.jpg"
+            />
+          </p>
+          <p>
+            <label for="name-one">Name</label>
+            <input
+              type="text"
+              id="name-one"
+              name="name_one"
+              minlength="1"
+              maxlength="15"
+              size="10"
+              value="Player One"
+              required
+            />
+          </p>
+          <p>
+            <label for="letter-one">Letter</label>
+            <input
+              type="text"
+              id="letter-one"
+              name="letter_one"
+              minlength="1"
+              maxlength="1"
+              size="1"
+              value="X"
+              required
+            />
+          </p>
+          <p>
+            <label for="color-one">Color</label>
+            <input type="color" id="color-one" name="color_one" value="cyan" />
+          </p>
+        </div>
+        <div class="dialog__form-container dialog__form-container--player-two">
+          <div class="dialog__image-container">
+            <img
+              class="dialog__image"
+              src="./assets/icons/player-two.png"
+              alt="Player Two Icon"
+            />
+          </div>
+          <p>
+            <label for="avatar-two"></label>
+            <input
+              type="file"
+              id="avatar-two"
+              name="avatar_two"
+              accept="image/*.png, image/*.jpeg, image/*.jpg"
+            />
+          </p>
+          <p>
+            <label for="name-two">Name</label>
+            <input
+              type="text"
+              id="name-two"
+              name="name_two"
+              minlength="1"
+              maxlength="15"
+              size="10"
+              value="Player Two"
+              required
+            />
+          </p>
+          <p>
+            <label for="letter-two">Letter</label>
+            <input
+              type="text"
+              id="letter-two"
+              name="letter_two"
+              minlength="1"
+              maxlength="1"
+              size="1"
+              value="X"
+              required
+            />
+          </p>
+          <p>
+            <label for="color-two">Color</label>
+            <input type="color" id="color-two" name="color_two" value="red" />
+          </p>
+        </div>
+        <div class="dialog__form-container dialog__form-container--setings">
+          <p>
+            <label for="infinity">Infinite Rounds: </label>
+            <input type="checkbox" id="infinity" name="setting_infinite" />
+          </p>
+          <p>
+            <label for="rounds">Rounds to Win:</label>
+            <input
+              type="number"
+              id="rounds"
+              min="1"
+              max="100"
+              name="settings_rounds"
+            />
+          </p>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>
