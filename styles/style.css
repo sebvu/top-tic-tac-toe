@@ -304,8 +304,8 @@ body {
   align-items: center;
   gap: 1rem;
 
-  width: calc(var(--size) * 15);
-  height: clamp(320px, 50vh, 600px);
+  width: calc(var(--size) * 18);
+  height: min-content;
   padding: 1.5rem;
   padding-bottom: 2.5rem;
 
@@ -317,6 +317,9 @@ body {
   box-shadow: 0 0 0.8rem rgb(from var(--background-opposite-color) r g b / 50%);
 
   min-width: 0;
+
+  animation-name: openTransition;
+  animation-duration: 0.5s;
 }
 
 .dialog::backdrop {
@@ -332,14 +335,17 @@ body {
   color: var(--required-form-color);
 }
 
+/* internal form styling */
+
 .dialog__form {
   flex: auto;
   align-self: stretch;
   display: grid;
   grid:
     "player-one player-two" 3fr
-    "settings settings" 1fr
+    "settings submit" 1fr
     / 1fr 1fr;
+  gap: 1rem;
 
   min-width: 0;
   min-height: 0;
@@ -347,6 +353,8 @@ body {
 
 .dialog__form-container {
   display: flex;
+  justify-content: center;
+  align-items: stretch;
   flex-direction: column;
 }
 
@@ -362,13 +370,62 @@ body {
   grid-area: settings;
 }
 
+.dialog__form-container--submit {
+  grid-area: submit;
+}
+
+.player-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-p--avatar {
+  padding: 0.5rem 0 1rem;
+}
+
+.player-p--avatar > label {
+  border: 1px solid white;
+  padding: 2px 4px;
+}
+
+.player-p--avatar > input {
+  display: none;
+}
+
+.player-small-fields {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: var(--size);
+}
+
+.player-small-fields-p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.player-small-fields-p > input {
+  height: calc(var(--size) * 2);
+  width: calc(var(--size) * 3);
+}
+
 .dialog__image-container {
   display: flex;
   justify-content: center;
   align-items: center;
 
   aspect-ratio: 1 / 1;
-  width: calc(var(--size) * 2.5);
+  width: calc(var(--size) * 5);
   height: auto;
 
   background-color: var(--secondary-color);
@@ -381,6 +438,34 @@ body {
 
 .dialog__image {
   object-fit: cover;
+}
+
+.setting-p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.setting-p--infinite > input {
+  height: calc(var(--size));
+  width: calc(var(--size));
+}
+
+.setting-p--rounds > input {
+  height: calc(var(--size) * 1.5);
+  width: calc(var(--size) * 3);
+}
+
+.dialog__form-container--submit {
+  align-items: center;
+}
+
+.dialog__form-submit-button {
+  width: min-content;
+  padding: 0.5rem 1rem;
+
+  border-radius: 500px;
 }
 
 /* ========================= */

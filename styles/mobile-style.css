@@ -1,6 +1,6 @@
 @media (max-width: 1200px) {
   :root {
-    --base-size: 0.6rem;
+    --base-size: 0.7rem;
   }
 
   .wrapper {
@@ -23,6 +23,10 @@
     width: calc(var(--size) * 20);
   }
 
+  .setting-p--rounds > input {
+    width: auto;
+  }
+
   .game-board {
     height: 75vmin;
   }
@@ -43,7 +47,7 @@
       "user-name" 1fr
       "score" 1fr
       / 1fr;
-      
+
     padding-right: 1rem;
   }
 
@@ -76,17 +80,22 @@
   }
 
   .dialog {
-    width: 90%;
+    width: 100%;
 
+    border-radius: 0;
     padding: 0.5rem;
     padding-bottom: 1.5rem;
-
   }
 }
 
 @media (max-height: 450px) {
   :root {
     --base-size: 0.4rem;
+  }
+
+  .dialog {
+    border-radius: 0;
+    height: 100vh;
   }
 
   .game-board {
