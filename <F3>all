@@ -391,37 +391,13 @@ body {
   position: relative;
 }
 
-.player-p > label {
-  position: relative;
-}
-
-.player-p > input:user-invalid {
-  border: 2px solid var(--required-form-color);
-}
-
-.player-p > label:has(+ input[required])::before {
+.player-p > input:required + span::before {
   content: "*";
   color: var(--required-form-color);
 
   position: absolute;
   top: 5%;
-  left: -20%;
-}
-
-.player-p > input + span::before {
-  position: absolute;
-  right: -10%;
-  bottom: 10%;
-}
-
-.player-p > input:user-invalid + span::before {
-  content: "✖";
-  color: var(--required-form-color);
-}
-
-.player-p > input:user-valid + span::before {
-  content: "✓";
-  color: var(--completed-form-color);
+  left: 30%;
 }
 
 .player-p--avatar {
@@ -473,37 +449,13 @@ body {
   text-align: center;
 }
 
-.player-small-fields-p > label {
-  position: relative;
-}
-
-.player-small-fields-p > label:has(+ input[required])::before {
+.player-small-fields-p > input:required + span::before {
   content: "*";
   color: var(--required-form-color);
 
   position: absolute;
   top: 5%;
-  left: -20%;
-}
-
-.player-small-fields-p > input:user-invalid {
-  border: 2px solid var(--required-form-color);
-}
-
-.player-small-fields-p > input + span::before {
-  position: absolute;
-  right: -30%;
-  top: 50%;
-}
-
-.player-small-fields-p > input:user-invalid + span::before {
-  content: "✖";
-  color: var(--required-form-color);
-}
-
-.player-small-fields-p > input:user-valid + span::before {
-  content: "✓";
-  color: var(--completed-form-color);
+  left: -15%;
 }
 
 .dialog__image-container {
@@ -540,36 +492,20 @@ body {
   border: 2px solid var(--required-form-color);
 }
 
-.setting-p > label {
-  position: relative;
-}
-
 .setting-p > label:has(+ input[required])::after {
   content: "*";
   color: var(--required-form-color);
 
   position: absolute;
   top: 5%;
-  left: -8%;
+  left: -5%;
 }
 
-.setting-p > input + span::before {
-  position: absolute;
-  bottom: 5%;
-}
-
-.setting-p > input:user-invalid + span::before {
+.settings-p > input:user-invalid + span::before {
   content: "✖";
   color: var(--required-form-color);
-}
 
-.setting-p > input:user-valid + span::before {
-  content: "✓";
-  color: var(--completed-form-color);
-}
-
-.setting-p--infinite {
-  padding-right: 1rem;
+  position: absolute;
 }
 
 .setting-p--infinite > input {

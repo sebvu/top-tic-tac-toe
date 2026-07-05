@@ -61,8 +61,6 @@
   /* === COLOR SCHEMES === */
   /* generated through: https://www.realtimecolors.com/ */
 
-  --required-form-color: #a50735;
-  --completed-form-color: #66f250;
 
   /* light theme (default) */
   --text-color: #27070e;
@@ -73,6 +71,9 @@
 
   --text-opposite-color: #f8d8df;
   --background-opposite-color: #150409;
+
+  --required-form-color: #a50735;
+  --completed-form-color: #66f250;
 }
 
 :root[data-theme="dark"] {
@@ -84,6 +85,9 @@
 
   --text-opposite-color: #27070e;
   --background-opposite-color: #fbeaef;
+
+  --required-form-color: #fe2145;
+  --completed-form-color: #66f250;
 }
 
 /* === SIZE CONTEXT ACCESSORS */

@@ -210,14 +210,13 @@
             </div>
           </div>
           <p class="player-p player-p--avatar _text _text--normal-font">
-            <label for="avatar-one">Select Player Icon</label>
+            <label tabindex="0" for="avatar-one">Select Player Icon</label>
             <input
               type="file"
               id="avatar-one"
               name="avatar_one"
               accept="image/*.png, image/*.jpeg, image/*.jpg"
             />
-            <span></span>
           </p>
           <p class="player-p player-p--name _text _text--normal-font">
             <label for="name-one">Name</label>
@@ -227,10 +226,10 @@
               name="name_one"
               minlength="1"
               maxlength="15"
-              size="10"
               value="Player One"
               required
             />
+            <span></span>
           </p>
           <div class="player-small-fields">
             <p
@@ -247,6 +246,7 @@
                 value="X"
                 required
               />
+              <span></span>
             </p>
             <p
               class="player-small-fields-p player-small-fields-p--color _text _text--normal-font"
@@ -272,7 +272,7 @@
             </div>
           </div>
           <p class="player-p player-p--avatar _text _text--normal-font">
-            <label for="avatar-two">Select Player Icon</label>
+            <label tabindex="0" for="avatar-two">Select Player Icon</label>
             <input
               type="file"
               id="avatar-two"
@@ -292,6 +292,7 @@
               value="Player Two"
               required
             />
+            <span></span>
           </p>
           <div class="player-small-fields">
             <p
@@ -308,6 +309,7 @@
                 value="O"
                 required
               />
+              <span></span>
             </p>
             <p
               class="player-small-fields-p player-small-fields-p--color _text _text--normal-font"
@@ -332,7 +334,9 @@
               max="100"
               value="5"
               name="settings_rounds"
+              required
             />
+            <span></span>
           </p>
         </div>
         <div class="dialog__form-container dialog__form-container--submit">
