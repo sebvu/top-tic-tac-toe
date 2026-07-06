@@ -24,8 +24,8 @@
   }
 
   .setting-p--rounds > input {
-    width: auto;
-  }
+    width: calc(var(--size) * 5);
+   }
 
   .game-board {
     height: 75vmin;

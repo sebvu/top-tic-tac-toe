@@ -577,9 +577,15 @@ body {
   width: calc(var(--size));
 }
 
+.setting-p--rounds > label {
+  flex: 1 0 max-content;
+}
+
 .setting-p--rounds > input {
+  flex: auto;
+
   height: calc(var(--size) * 1.5);
-  width: calc(var(--size) * 3);
+
   text-align: center;
 }
 
