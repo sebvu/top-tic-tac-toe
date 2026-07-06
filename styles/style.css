@@ -410,18 +410,23 @@ body {
 
 .player-p > input + span::before {
   position: absolute;
-  right: -10%;
   bottom: 10%;
 }
 
 .player-p > input:user-invalid + span::before {
   content: "✖";
+
   color: var(--required-form-color);
+
+  right: -10%;
 }
 
 .player-p > input:user-valid + span::before {
   content: "✓";
+
   color: var(--completed-form-color);
+
+  right: -12%;
 }
 
 .player-p--avatar {
@@ -449,6 +454,9 @@ body {
 
 .player-p--name > input {
   width: 100%;
+
+  border-radius: 1rem;
+  padding: 0 1rem;
 }
 
 .player-small-fields {
@@ -467,14 +475,17 @@ body {
   position: relative;
 }
 
+.player-small-fields-p > label {
+  position: relative;
+}
+
 .player-small-fields-p > input {
   height: calc(var(--size) * 2);
   width: calc(var(--size) * 3);
-  text-align: center;
-}
 
-.player-small-fields-p > label {
-  position: relative;
+  border-radius: 0.5rem;
+
+  text-align: center;
 }
 
 .player-small-fields-p > label:has(+ input[required])::before {
@@ -492,17 +503,18 @@ body {
 
 .player-small-fields-p > input + span::before {
   position: absolute;
-  right: -30%;
   top: 50%;
 }
 
 .player-small-fields-p > input:user-invalid + span::before {
   content: "✖";
+  right: -30%;
   color: var(--required-form-color);
 }
 
 .player-small-fields-p > input:user-valid + span::before {
   content: "✓";
+  right: -35%;
   color: var(--completed-form-color);
 }
 
