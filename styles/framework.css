@@ -64,9 +64,10 @@
   /* consistent color themes */
 
   --form-input-color: #fbeaef;
+  --text-color: #f8d8df;
 
   /* light theme (default) */
-  --text-color: #27070e;
+  --main-text-color: #27070e;
   --background-color: #fbeaef;
   --primary-color: #78172a;
   --secondary-color: #c0e67f;
@@ -80,7 +81,7 @@
 }
 
 :root[data-theme="dark"] {
-  --text-color: #f8d8df;
+  --main-text-color: #f8d8df;
   --background-color: #150409;
   --primary-color: #e8879a;
   --secondary-color: #5a8019;
