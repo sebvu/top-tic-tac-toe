@@ -25,7 +25,7 @@
 
   .setting-p--rounds > input {
     width: calc(var(--size) * 5);
-   }
+  }
 
   .game-board {
     height: 75vmin;
@@ -86,6 +86,10 @@
     padding: 0.5rem;
     padding-bottom: 1.5rem;
   }
+
+  .dialog__exit-button {
+    height: calc(var(--size) * 2.2);
+  }
 }
 
 @media (max-height: 450px) {
@@ -95,7 +99,10 @@
 
   .dialog {
     border-radius: 0;
-    height: 100vh;
+  }
+
+  .dialog__exit-button {
+    height: calc(var(--size) * 2.2);
   }
 
   .game-board {

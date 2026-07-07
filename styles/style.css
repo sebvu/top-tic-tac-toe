@@ -282,7 +282,7 @@ body {
   pointer-events: none;
 }
 
-.dashboard-footer__button--start {
+.dashboard-footer__button--start-glowing {
   animation-name: glowingSvgIcon;
   animation-duration: 2s;
   animation-iteration-count: infinite;
@@ -321,10 +321,30 @@ body {
 
   animation-name: openTransition;
   animation-duration: 0.5s;
+
+  position: relative;
 }
 
 .dialog::backdrop {
   background-color: rgb(from var(--background-opposite-color) r g b / 20%);
+}
+
+.dialog__exit-button {
+  border: none;
+  background-color: #0000;
+  fill: var(--required-form-color);
+
+  aspect-ratio: 1 / 1;
+  height: calc(var(--size) * 1.8);
+  width: auto;
+
+  position: absolute;
+  top: 5%;
+  left: 3%;
+}
+
+.dialog__exit-button-svg {
+  pointer-events: none;
 }
 
 .dialog__header,

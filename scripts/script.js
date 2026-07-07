@@ -36,6 +36,18 @@ const UIController = (() => {
     localStorage.setItem(STORAGE_THEME_NAME, newTheme);
   };
 
+  const toggleGlowingIcon = () => {
+    const startButton = document.querySelector(
+      ".dashboard-footer__button--start",
+    );
+
+    const className = "dashboard-footer__button--start-glowing";
+
+    startButton.classList.contains(className)
+      ? startButton.classList.remove(className)
+      : startButton.classList.add(className);
+  };
+
   const removeDialog = () => {
     dialogElement.remove();
   };
@@ -51,7 +63,7 @@ const UIController = (() => {
     return dialogElement;
   };
 
-  // UI specific event listeners
+  // dialog specific event listeners
 
   dialogElement.addEventListener("close", () => {
     removeDialog();
@@ -61,6 +73,7 @@ const UIController = (() => {
     const playerIconLabels = document.querySelectorAll(
       ".player-p--avatar > label",
     );
+    const exitButton = document.querySelector(".dialog__exit-button");
 
     playerIconLabels.forEach((el) => {
       el.addEventListener("keydown", (e) => {
@@ -71,11 +84,16 @@ const UIController = (() => {
         }
       });
     });
+
+    exitButton.addEventListener("click", () => {
+      closeDialog();
+    });
   })();
 
   return {
     setPreviousTheme,
     toggleTheme,
+    toggleGlowingIcon,
     removeDialog,
     closeDialog,
     getStartGameDialog,
@@ -137,8 +155,10 @@ const gameBoard = (() => {
 })();
 
 function main() {
+  // pre-run functions
   UIController.setPreviousTheme();
   UIController.removeDialog();
+  UIController.toggleGlowingIcon();
 
   const themeToggler = document.querySelector(
     ".dashboard-footer__button--theme",
