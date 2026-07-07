@@ -1,15 +1,17 @@
-function Player(name, letter) {
+function Player(icon, name, letter, color) {
   const score = 0;
 
+  const getIcon = () => icon;
   const getName = () => name;
   const getLetter = () => letter;
+  const getColor = () => color;
   const getScore = () => score;
 
   const increaseScore = () => {
     score++;
   };
 
-  return { getName, getLetter, getScore, increaseScore };
+  return { getIcon, getName, getLetter, getColor, getScore, increaseScore };
 }
 
 // UI handler
@@ -34,7 +36,29 @@ const UIController = (() => {
   );
   const playerOneIconSelector = document.querySelector("#avatar-one");
   const playerTwoIconSelector = document.querySelector("#avatar-two");
+  const playerOneColor = document.querySelector("#color-one");
+  const playerTwoColor = document.querySelector("#color-two");
   const gameStatus = document.querySelector(".game-status__text");
+
+  // private function
+
+  const startGame = () => {
+    // generate both players and send them off to nirvana
+    const playerOne = Player(
+      playerOneIconSelector.files[0],
+      playerOneName.value,
+      playerOneLetter.value,
+      playerOneColor.value,
+    );
+    const playerTwo = Player(
+      playerTwoIconSelector.files[0],
+      playerTwoName.value,
+      playerTwoLetter.value,
+      playerTwoColor.value,
+    );
+
+    gameBoard.startGame(playerOne, playerTwo);
+  };
 
   // public functions
 
@@ -87,6 +111,26 @@ const UIController = (() => {
 
   // dialog specific event listeners
 
+  dialogForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // trigger all validity checks
+    [playerOneName, playerTwoName, playerOneLetter, playerTwoLetter].forEach(
+      (el) => {
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+      },
+    );
+
+    if (dialogForm.checkValidity()) {
+      console.log("Validity is good. Starting game.");
+      toggleGlowingIcon();
+      closeDialog();
+      startGame(); // sending request to gameboard
+    } else {
+      console.log("Bad form validity");
+    }
+  });
+
   // load icon image
   [
     [playerOneIcon, playerOneIconSelector],
@@ -123,23 +167,6 @@ const UIController = (() => {
 
   exitButton.addEventListener("click", () => {
     closeDialog();
-  });
-
-  dialogForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    // trigger all validity checks
-    [playerOneName, playerTwoName, playerOneLetter, playerTwoLetter].forEach(
-      (el) => {
-        el.dispatchEvent(new Event("input", { bubbles: true }));
-      },
-    );
-
-    if (dialogForm.checkValidity()) {
-      console.log("Validity is good. Starting game.");
-    } else {
-      console.log("Bad form validity");
-    }
   });
 
   [playerOneName, playerTwoName].forEach((el) => {
@@ -198,12 +225,9 @@ const UIController = (() => {
 // tic tac toe logic handler
 const gameBoard = (() => {
   const MAX_SPOTS = 9;
-  const playerOne = Player("Jester", "X");
-  const playerTwo = Player("Cristal", "O");
 
   let gameArray = new Array(MAX_SPOTS).fill(null);
   let currPlayer = Math.floor(Math.random() * 10) < 5 ? playerOne : playerTwo; // randomly decide who starts game
-
   // private
 
   const checkCompletionFromCell = (index) => {
@@ -246,6 +270,7 @@ const gameBoard = (() => {
   const getGameArray = () => gameArray;
 
   return {
+    startGame,
     getPlayerOne,
     getPlayerTwo,
     getGameArray,
