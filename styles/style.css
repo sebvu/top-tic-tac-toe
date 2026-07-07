@@ -691,6 +691,12 @@ body {
   --size: 18vmin;
 }
 
+.game-board__cell--dancing {
+  animation-name: dancingText;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
 /* ========================= */
 /* Footer Styling */
 /* ========================= */

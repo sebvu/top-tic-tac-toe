@@ -226,6 +226,16 @@
   }
 }
 
+@keyframes dancingText {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  50% {
+    transform: scale(1.5, 1.5);
+  }
+}
+
 @keyframes openTransition {
   0% {
     transform: scale(0.1, 0.1);

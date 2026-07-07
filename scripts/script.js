@@ -24,6 +24,7 @@ const UIController = (() => {
     ".player-p--avatar > label",
   );
   const exitButton = document.querySelector(".dialog__exit-button");
+
   const playerOneName = document.querySelector("#name-one");
   const playerTwoName = document.querySelector("#name-two");
   const playerOneLetter = document.querySelector("#letter-one");
@@ -38,7 +39,9 @@ const UIController = (() => {
   const playerTwoIconSelector = document.querySelector("#avatar-two");
   const playerOneColor = document.querySelector("#color-one");
   const playerTwoColor = document.querySelector("#color-two");
+
   const gameStatus = document.querySelector(".game-status__text");
+  const gameBoardEl = document.querySelector(".game-board");
 
   // private function
 
@@ -57,10 +60,30 @@ const UIController = (() => {
       playerTwoColor.value,
     );
 
-    gameBoard.startGame(playerOne, playerTwo);
+    TicTacToeController.startGame(playerOne, playerTwo);
   };
 
   // public functions
+
+  const setDefaultBoardDisplay = () => {
+    const gameBoardList = gameBoardEl.children;
+    const textList = ["T", "I", "C", "T", "A", "C", "T", "O", "E"];
+
+    for (let i = 0; i < gameBoardList.length; i++) {
+      let cellElement = gameBoardList[i].children[0];
+      cellElement.textContent = textList[i];
+
+      cellElement.classList.add("game-board__cell--dancing");
+    }
+  };
+
+  const clearBoardDisplay = () => {
+    const gameBoardList = gameBoardEl.children;
+
+    for (let i = 0; i < gameBoardList.length; i++) {
+      gameBoardList[i].children[0].textContent = "";
+    }
+  };
 
   const setGameStatus = (status) => {
     gameStatus.textContent = status;
@@ -139,8 +162,6 @@ const UIController = (() => {
     const icon = elArr[0];
     const iconSelector = elArr[1];
 
-    console.log(elArr);
-
     iconSelector.addEventListener("input", () => {
       const reader = new FileReader();
       const file = iconSelector.files[0];
@@ -212,6 +233,8 @@ const UIController = (() => {
   });
 
   return {
+    setDefaultBoardDisplay,
+    clearBoardDisplay,
     setGameStatus,
     setPreviousTheme,
     toggleTheme,
@@ -225,6 +248,8 @@ const UIController = (() => {
 // tic tac toe logic handler
 const gameBoard = (() => {
   const MAX_SPOTS = 9;
+  const playerOne = null;
+  const playerTwo = null;
 
   let gameArray = new Array(MAX_SPOTS).fill(null);
   let currPlayer = Math.floor(Math.random() * 10) < 5 ? playerOne : playerTwo; // randomly decide who starts game
@@ -270,7 +295,6 @@ const gameBoard = (() => {
   const getGameArray = () => gameArray;
 
   return {
-    startGame,
     getPlayerOne,
     getPlayerTwo,
     getGameArray,
@@ -278,10 +302,14 @@ const gameBoard = (() => {
   };
 })();
 
+// controller between UIController and gameBoard
+const TicTacToeController = (() => {})();
+
 function main() {
   // pre-run functions
-  UIController.setPreviousTheme();
   UIController.removeDialog();
+  UIController.setDefaultBoardDisplay();
+  UIController.setPreviousTheme();
   UIController.toggleGlowingIcon();
 
   const themeToggler = document.querySelector(
