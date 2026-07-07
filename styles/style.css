@@ -138,6 +138,12 @@ body {
   object-fit: cover;
 }
 
+.profile-left__image--current {
+  animation-name: currentTurnIcon;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
 .profile-left__user-name-container {
   grid-area: user-name;
   display: flex;
@@ -151,6 +157,12 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.profile-left__user-name--current {
+  animation-name: currentTurnName;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
 }
 
 .profile-left__score-container {
@@ -203,6 +215,12 @@ body {
   object-fit: cover;
 }
 
+.profile-right__image--current {
+  animation-name: currentTurnIcon;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
 .profile-right__user-name-container {
   grid-area: user-name;
   display: flex;
@@ -216,6 +234,12 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.profile-right__user-name--current {
+  animation-name: currentTurnName;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
 }
 
 .profile-right__score-container {

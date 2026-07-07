@@ -1,7 +1,7 @@
-function Player(icon, name, letter, color) {
+function Player(iconURL, name, letter, color) {
   const score = 0;
 
-  const getIcon = () => icon;
+  const getIconURL = () => iconURL;
   const getName = () => name;
   const getLetter = () => letter;
   const getColor = () => color;
@@ -11,7 +11,7 @@ function Player(icon, name, letter, color) {
     score++;
   };
 
-  return { getIcon, getName, getLetter, getColor, getScore, increaseScore };
+  return { getIconURL, getName, getLetter, getColor, getScore, increaseScore };
 }
 
 // UI handler
@@ -40,6 +40,14 @@ const UIController = (() => {
   const playerOneColor = document.querySelector("#color-one");
   const playerTwoColor = document.querySelector("#color-two");
 
+  const leftProfileIcon = document.querySelector(".profile-left__image");
+  const leftProfileName = document.querySelector(".profile-left__user-name");
+  const leftProfileScore = document.querySelector(".profile-left__score");
+
+  const rightProfileIcon = document.querySelector(".profile-right__image");
+  const rightProfileName = document.querySelector(".profile-right__user-name");
+  const rightProfileScore = document.querySelector(".profile-right__score");
+
   const gameStatus = document.querySelector(".game-status__text");
   const gameBoardEl = document.querySelector(".game-board");
 
@@ -48,13 +56,13 @@ const UIController = (() => {
   const startGame = () => {
     // generate both players and send them off to nirvana
     const playerOne = Player(
-      playerOneIconSelector.files[0],
+      playerOneIcon.getAttribute("src"),
       playerOneName.value,
       playerOneLetter.value,
       playerOneColor.value,
     );
     const playerTwo = Player(
-      playerTwoIconSelector.files[0],
+      playerTwoIcon.getAttribute("src"),
       playerTwoName.value,
       playerTwoLetter.value,
       playerTwoColor.value,
@@ -65,7 +73,30 @@ const UIController = (() => {
 
   // public functions
 
-  const setDefaultBoardDisplay = () => {
+  const displayCurrentPlayer = (is) => {
+    if (is === true) {
+      leftProfileIcon.parentElement.classList.add(
+        "profile-left__image--current",
+      );
+      rightProfileIcon.parentElement.classList.remove(
+        "profile-right__image--current",
+      );
+      leftProfileName.classList.add("profile-left__user-name--current");
+      rightProfileName.classList.remove("profile-right__user-name--current");
+    } else {
+      rightProfileIcon.parentElement.classList.add(
+        "profile-right__image--current",
+      );
+      leftProfileIcon.parentElement.classList.remove(
+        "profile-left__image--current",
+      );
+      rightProfileName.classList.add("profile-right__user-name--current");
+      leftProfileName.classList.remove("profile-left__user-name--current");
+    }
+  };
+
+  const setDefaultPage = () => {
+    // set gameboard to default
     const gameBoardList = gameBoardEl.children;
     const textList = ["T", "I", "C", "T", "A", "C", "T", "O", "E"];
 
@@ -75,6 +106,18 @@ const UIController = (() => {
 
       cellElement.classList.add("game-board__cell--dancing");
     }
+
+    setGameStatus("WAITING FOR GAME");
+    leftProfileIcon.setAttribute("src", "./assets/icons/player-one.png");
+    rightProfileIcon.setAttribute("src", "./assets/icons/player-two.png");
+
+    leftProfileName.textContent = "N/A";
+    rightProfileName.textContent = "N/A";
+
+    leftProfileScore.textContent = "0";
+    rightProfileScore.textContent = "0";
+
+    toggleGlowingIcon(true);
   };
 
   const clearBoardDisplay = () => {
@@ -83,6 +126,16 @@ const UIController = (() => {
     for (let i = 0; i < gameBoardList.length; i++) {
       gameBoardList[i].children[0].textContent = "";
     }
+  };
+
+  const updatePlayerInformation = (playerOne, playerTwo) => {
+    leftProfileIcon.setAttribute("src", playerOne.getIconURL());
+    leftProfileName.textContent = playerOne.getName();
+    leftProfileScore.textContent = playerOne.getScore();
+
+    rightProfileIcon.setAttribute("src", playerTwo.getIconURL());
+    rightProfileName.textContent = playerTwo.getName();
+    rightProfileScore.textContent = playerTwo.getScore();
   };
 
   const setGameStatus = (status) => {
@@ -105,16 +158,20 @@ const UIController = (() => {
     localStorage.setItem(STORAGE_THEME_NAME, newTheme);
   };
 
-  const toggleGlowingIcon = () => {
+  const toggleGlowingIcon = (force = false) => {
     const startButton = document.querySelector(
       ".dashboard-footer__button--start",
     );
 
     const className = "dashboard-footer__button--start-glowing";
 
-    startButton.classList.contains(className)
-      ? startButton.classList.remove(className)
-      : startButton.classList.add(className);
+    if (!force) {
+      startButton.classList.contains(className)
+        ? startButton.classList.remove(className)
+        : startButton.classList.add(className);
+    } else {
+      startButton.classList.add(className);
+    }
   };
 
   const removeDialog = () => {
@@ -233,8 +290,10 @@ const UIController = (() => {
   });
 
   return {
-    setDefaultBoardDisplay,
+    displayCurrentPlayer,
+    setDefaultPage,
     clearBoardDisplay,
+    updatePlayerInformation,
     setGameStatus,
     setPreviousTheme,
     toggleTheme,
@@ -248,11 +307,11 @@ const UIController = (() => {
 // tic tac toe logic handler
 const gameBoard = (() => {
   const MAX_SPOTS = 9;
-  const playerOne = null;
-  const playerTwo = null;
+  let playerOne = null;
+  let playerTwo = null;
+  let currPlayer = null;
 
   let gameArray = new Array(MAX_SPOTS).fill(null);
-  let currPlayer = Math.floor(Math.random() * 10) < 5 ? playerOne : playerTwo; // randomly decide who starts game
   // private
 
   const checkCompletionFromCell = (index) => {
@@ -281,6 +340,12 @@ const gameBoard = (() => {
 
   // public
 
+  const setPlayers = (newPlayerOne, newPlayerTwo) => {
+    playerOne = newPlayerOne;
+    playerTwo = newPlayerTwo;
+    currPlayer = Math.floor(Math.random() * 10) < 5 ? playerOne : playerTwo; // randomly decide who starts game
+  };
+
   const attemptSelectCell = (index) => {
     if (gameArray[index] === null) {
       gameArray[index] = currPlayer.getLetter();
@@ -290,27 +355,56 @@ const gameBoard = (() => {
     }
   };
 
+  const getCurrentTurn = () => currPlayer;
   const getPlayerOne = () => playerOne;
   const getPlayerTwo = () => playerTwo;
   const getGameArray = () => gameArray;
 
   return {
+    setPlayers,
+    attemptSelectCell,
+    getCurrentTurn,
     getPlayerOne,
     getPlayerTwo,
     getGameArray,
-    attemptSelectCell,
   };
 })();
 
 // controller between UIController and gameBoard
-const TicTacToeController = (() => {})();
+const TicTacToeController = (() => {
+  let pOne = null;
+  let pTwo = null;
+
+  const startGame = (playerOne, playerTwo) => {
+    pOne = playerOne;
+    pTwo = playerTwo;
+    // setup players for both boards
+    gameBoard.setPlayers(pOne, pTwo);
+    UIController.updatePlayerInformation(pOne, pTwo);
+    UIController.clearBoardDisplay();
+
+    doRound();
+  };
+
+  const doRound = () => {
+    const currTurn = gameBoard.getCurrentTurn();
+    UIController.setGameStatus(`${currTurn.getName()} turn`);
+
+    if (currTurn === pOne) {
+      UIController.displayCurrentPlayer(true);
+    } else {
+      UIController.displayCurrentPlayer(false);
+    }
+  };
+
+  return { startGame };
+})();
 
 function main() {
   // pre-run functions
   UIController.removeDialog();
-  UIController.setDefaultBoardDisplay();
+  UIController.setDefaultPage();
   UIController.setPreviousTheme();
-  UIController.toggleGlowingIcon();
 
   const themeToggler = document.querySelector(
     ".dashboard-footer__button--theme",

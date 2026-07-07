@@ -236,6 +236,30 @@
   }
 }
 
+@keyframes currentTurnIcon {
+  0%,
+  100% {
+    transform: scale(1, 1);
+    box-shadow: 0 2px 8px var(--accent-color);
+  }
+  50% {
+    transform: scale(1.05, 1.05);
+    box-shadow: 0 2px 16px var(--accent-color);
+  }
+}
+
+@keyframes currentTurnName {
+  0%,
+  100% {
+    transform: scale(1, 1);
+    filter: drop-shadow(0 2px 4px var(--text-color));
+  }
+  50% {
+    transform: scale(1.1, 1.1);
+    filter: drop-shadow(0 2px 8px var(--text-color));
+  }
+}
+
 @keyframes openTransition {
   0% {
     transform: scale(0.1, 0.1);
