@@ -57,6 +57,22 @@ const UIController = (() => {
     removeDialog();
   });
 
+  (() => {
+    const playerIconLabels = document.querySelectorAll(
+      ".player-p--avatar > label",
+    );
+
+    playerIconLabels.forEach((el) => {
+      el.addEventListener("keydown", (e) => {
+        const key = e.key;
+
+        if (key === "Enter") {
+          el.click();
+        }
+      });
+    });
+  })();
+
   return {
     setPreviousTheme,
     toggleTheme,
