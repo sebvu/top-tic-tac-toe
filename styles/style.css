@@ -3,6 +3,11 @@ body {
   height: 100%;
 }
 
+body {
+  position: fixed;
+  overflow-y: scroll;
+}
+
 .wrapper {
   display: grid;
   grid:
