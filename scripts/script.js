@@ -71,7 +71,15 @@ const UIController = (() => {
       playerTwoColor.value,
     );
 
-    TicTacToeController.startGame(playerOne, playerTwo);
+    const isInfinite = document.querySelector("#infinite").checked;
+    const roundsToWin = document.querySelector("#rounds").value;
+
+    TicTacToeController.startGame(
+      playerOne,
+      playerTwo,
+      isInfinite,
+      roundsToWin,
+    );
   };
 
   // public functions
@@ -282,7 +290,7 @@ const UIController = (() => {
         ) {
           [playerOneLetter, playerTwoLetter].forEach((elValidity) => {
             elValidity.setCustomValidity(
-              "Letters must be unique from eac other.",
+              "Letters must be unique from each other.",
             );
           });
         } else {
@@ -380,10 +388,15 @@ const gameBoard = (() => {
 const TicTacToeController = (() => {
   let pOne = null;
   let pTwo = null;
+  let isInf = null;
+  let goalRounds = null;
 
-  const startGame = (playerOne, playerTwo) => {
+  const startGame = (playerOne, playerTwo, isInfinite, roundsToWin) => {
     pOne = playerOne;
     pTwo = playerTwo;
+    isInf = isInfinite;
+    goalRounds = roundsToWin;
+    console.log(`${pOne}\n${pTwo}\n${isInf}\n${goalRounds}`);
     // setup players for both boards
     gameBoard.setPlayers(pOne, pTwo);
     UIController.updatePlayerInformation(pOne, pTwo);
