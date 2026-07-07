@@ -24,6 +24,9 @@ const UIController = (() => {
     ".player-p--avatar > label",
   );
   const exitButton = document.querySelector(".dialog__exit-button");
+  const gameBoardCellContainer = document.querySelectorAll(
+    ".game-board__cell-container",
+  );
 
   const playerOneName = document.querySelector("#name-one");
   const playerTwoName = document.querySelector("#name-two");
@@ -189,6 +192,8 @@ const UIController = (() => {
     return dialogElement;
   };
 
+  const getGameBoardEl = () => gameBoardEl;
+
   // dialog specific event listeners
 
   dialogForm.addEventListener("submit", (e) => {
@@ -233,7 +238,7 @@ const UIController = (() => {
     removeDialog();
   });
   // make change icons tab clickable
-  playerIconLabels.forEach((el) => {
+  [...playerIconLabels, ...gameBoardCellContainer].forEach((el) => {
     el.addEventListener("keydown", (e) => {
       const key = e.key;
 
@@ -301,6 +306,7 @@ const UIController = (() => {
     removeDialog,
     closeDialog,
     getStartGameDialog,
+    getGameBoardEl,
   };
 })();
 
@@ -395,6 +401,18 @@ const TicTacToeController = (() => {
     } else {
       UIController.displayCurrentPlayer(false);
     }
+
+    const gameBoardEl = UIController.getGameBoardEl();
+
+    gameBoardEl.addEventListener("click", (e) => {
+      const target = e.target;
+      const cellIndex = Array.prototype.indexOf.call(
+        gameBoardEl.children,
+        target,
+      );
+      console.log(cellIndex);
+      // gameBoard.attemptSelectCell(cellIndex);
+    });
   };
 
   return { startGame };

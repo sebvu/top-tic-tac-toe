@@ -713,6 +713,8 @@ body {
 
 .game-board__cell {
   --size: 18vmin;
+
+  pointer-events: none;
 }
 
 .game-board__cell--dancing {
