@@ -26,6 +26,14 @@ const UIController = (() => {
   const playerTwoName = document.querySelector("#name-two");
   const playerOneLetter = document.querySelector("#letter-one");
   const playerTwoLetter = document.querySelector("#letter-two");
+  const playerOneIcon = document.querySelector(
+    ".dialog__form-container--player-one .dialog__image",
+  );
+  const playerTwoIcon = document.querySelector(
+    ".dialog__form-container--player-two .dialog__image",
+  );
+  const playerOneIconSelector = document.querySelector("#avatar-one");
+  const playerTwoIconSelector = document.querySelector("#avatar-two");
   const gameStatus = document.querySelector(".game-status__text");
 
   // public functions
@@ -78,6 +86,26 @@ const UIController = (() => {
   };
 
   // dialog specific event listeners
+
+  // load icon image
+  [
+    [playerOneIcon, playerOneIconSelector],
+    [playerTwoIcon, playerTwoIconSelector],
+  ].forEach((elArr) => {
+    const icon = elArr[0];
+    const iconSelector = elArr[1];
+
+    console.log(elArr);
+
+    iconSelector.addEventListener("input", () => {
+      const reader = new FileReader();
+      const file = iconSelector.files[0];
+      reader.readAsDataURL(file);
+      reader.addEventListener("load", () => {
+        icon.setAttribute("src", reader.result);
+      });
+    });
+  });
 
   dialogElement.addEventListener("close", () => {
     removeDialog();

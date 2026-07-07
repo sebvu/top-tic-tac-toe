@@ -218,9 +218,11 @@
   }
   50% {
     fill: var(--secondary-color);
+    filter: drop-shadow(0 0 10px var(--secondary-color));
   }
   100% {
     fill: var(--text-color);
+    filter: drop-shadow(none);
   }
 }
 
