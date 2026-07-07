@@ -16,28 +16,7 @@ function Player(name, letter) {
 const UIController = (() => {
   const STORAGE_THEME_NAME = "theme";
   const THEME_ATTR = "data-theme";
-
-  // private functions
-
-  const getBaseDialog = () => {
-    const dialog = document.createElement("dialog");
-
-    dialog.classList.add(...["dialog", "--context-md"]);
-    dialog.setAttribute("popover", "");
-
-    // ensure dialog removal when closed
-    dialog.addEventListener("close", () => {
-      dialog.remove();
-    });
-
-    return dialog;
-  };
-
-  const setDialogInDOM = (dialog) => {
-    const body = document.querySelector("body");
-
-    body.appendChild(dialog);
-  }
+  const dialogElement = document.querySelector(".dialog");
 
   // public functions
 
@@ -57,15 +36,34 @@ const UIController = (() => {
     localStorage.setItem(STORAGE_THEME_NAME, newTheme);
   };
 
-  const getStartGameDialog = () => {
-    const dialog = getBaseDialog();
-
-    setDialogInDOM(dialog);
-
-    return dialog;
+  const removeDialog = () => {
+    dialogElement.remove();
   };
 
-  return { setPreviousTheme, toggleTheme, getStartGameDialog };
+  const closeDialog = () => {
+    dialogElement.close();
+  };
+
+  const getStartGameDialog = () => {
+    /* dialog must exist in dom before opening */
+    document.querySelector("body").appendChild(dialogElement);
+
+    return dialogElement;
+  };
+
+  // UI specific event listeners
+
+  dialogElement.addEventListener("close", () => {
+    removeDialog();
+  });
+
+  return {
+    setPreviousTheme,
+    toggleTheme,
+    removeDialog,
+    closeDialog,
+    getStartGameDialog,
+  };
 })();
 
 // tic tac toe logic handler
@@ -123,6 +121,9 @@ const gameBoard = (() => {
 })();
 
 function main() {
+  UIController.setPreviousTheme();
+  UIController.removeDialog();
+
   const themeToggler = document.querySelector(
     ".dashboard-footer__button--theme",
   );
@@ -130,17 +131,15 @@ function main() {
     ".dashboard-footer__button--start",
   );
 
-  UIController.setPreviousTheme();
-
   // === event listeners ===
   themeToggler.addEventListener("click", () => {
     UIController.toggleTheme();
   });
 
   startGameButton.addEventListener("click", () => {
-    const startGameDialog = UIController.getStartGameDialog();
+    const dialog = UIController.getStartGameDialog();
 
-    startGameDialog.showModal();
+    dialog.showModal();
   });
 }
 
