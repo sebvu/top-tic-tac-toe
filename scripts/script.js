@@ -17,8 +17,22 @@ const UIController = (() => {
   const STORAGE_THEME_NAME = "theme";
   const THEME_ATTR = "data-theme";
   const dialogElement = document.querySelector(".dialog");
+  const dialogForm = document.querySelector(".dialog__form");
+  const playerIconLabels = document.querySelectorAll(
+    ".player-p--avatar > label",
+  );
+  const exitButton = document.querySelector(".dialog__exit-button");
+  const playerOneName = document.querySelector("#name-one");
+  const playerTwoName = document.querySelector("#name-two");
+  const playerOneLetter = document.querySelector("#letter-one");
+  const playerTwoLetter = document.querySelector("#letter-two");
+  const gameStatus = document.querySelector(".game-status__text");
 
   // public functions
+
+  const setGameStatus = (status) => {
+    gameStatus.textContent = status;
+  };
 
   const setPreviousTheme = () => {
     const storedTheme = localStorage.getItem(STORAGE_THEME_NAME);
@@ -68,29 +82,82 @@ const UIController = (() => {
   dialogElement.addEventListener("close", () => {
     removeDialog();
   });
+  // make change icons tab clickable
+  playerIconLabels.forEach((el) => {
+    el.addEventListener("keydown", (e) => {
+      const key = e.key;
 
-  (() => {
-    const playerIconLabels = document.querySelectorAll(
-      ".player-p--avatar > label",
+      if (key === "Enter") {
+        el.click();
+      }
+    });
+  });
+
+  exitButton.addEventListener("click", () => {
+    closeDialog();
+  });
+
+  dialogForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // trigger all validity checks
+    [playerOneName, playerTwoName, playerOneLetter, playerTwoLetter].forEach(
+      (el) => {
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+      },
     );
-    const exitButton = document.querySelector(".dialog__exit-button");
 
-    playerIconLabels.forEach((el) => {
-      el.addEventListener("keydown", (e) => {
-        const key = e.key;
+    if (dialogForm.checkValidity()) {
+      console.log("Validity is good. Starting game.");
+    } else {
+      console.log("Bad form validity");
+    }
+  });
 
-        if (key === "Enter") {
-          el.click();
+  [playerOneName, playerTwoName].forEach((el) => {
+    ["input", "select"].forEach((type) => {
+      el.addEventListener(type, () => {
+        if (
+          playerOneName.value.toLowerCase() ===
+          playerTwoName.value.toLowerCase()
+        ) {
+          [playerOneName, playerTwoName].forEach((elValidity) => {
+            elValidity.setCustomValidity(
+              "Names must be unique from each other.",
+            );
+          });
+        } else {
+          [playerOneName, playerTwoName].forEach((elValidity) => {
+            elValidity.setCustomValidity("");
+          });
         }
       });
     });
+  });
 
-    exitButton.addEventListener("click", () => {
-      closeDialog();
+  [playerOneLetter, playerTwoLetter].forEach((el) => {
+    ["input", "select"].forEach((type) => {
+      el.addEventListener(type, () => {
+        if (
+          playerOneLetter.value.toLowerCase() ===
+          playerTwoLetter.value.toLowerCase()
+        ) {
+          [playerOneLetter, playerTwoLetter].forEach((elValidity) => {
+            elValidity.setCustomValidity(
+              "Letters must be unique from eac other.",
+            );
+          });
+        } else {
+          [playerOneLetter, playerTwoLetter].forEach((elValidity) => {
+            elValidity.setCustomValidity("");
+          });
+        }
+      });
     });
-  })();
+  });
 
   return {
+    setGameStatus,
     setPreviousTheme,
     toggleTheme,
     toggleGlowingIcon,
@@ -108,6 +175,8 @@ const gameBoard = (() => {
 
   let gameArray = new Array(MAX_SPOTS).fill(null);
   let currPlayer = Math.floor(Math.random() * 10) < 5 ? playerOne : playerTwo; // randomly decide who starts game
+
+  // private
 
   const checkCompletionFromCell = (index) => {
     let rowIndex = index % 3;
@@ -132,6 +201,8 @@ const gameBoard = (() => {
   const flipCurrPlayer = () => {
     currPlayer = currPlayer === playerOne ? playerTwo : playerOne;
   };
+
+  // public
 
   const attemptSelectCell = (index) => {
     if (gameArray[index] === null) {

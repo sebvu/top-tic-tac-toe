@@ -385,12 +385,12 @@ body {
 
 .dialog__form-container--player-one {
   grid-area: player-one;
-  width: 80%;
+  width: 90%;
 }
 
 .dialog__form-container--player-two {
   grid-area: player-two;
-  width: 80%;
+  width: 90%;
 }
 
 .dialog__form-container--settings {
