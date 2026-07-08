@@ -1,4 +1,4 @@
-function Player(iconURL, name, letter, color) {
+function Player(iconURL, name, letter, color, direction) {
   const score = 0;
 
   const getIconURL = () => iconURL;
@@ -11,7 +11,18 @@ function Player(iconURL, name, letter, color) {
     score++;
   };
 
-  return { getIconURL, getName, getLetter, getColor, getScore, increaseScore };
+  // either left or right, lowercase. depending if on left or right of screen
+  const getDirection = () => direction;
+
+  return {
+    getIconURL,
+    getName,
+    getLetter,
+    getColor,
+    getScore,
+    increaseScore,
+    getDirection,
+  };
 }
 
 // UI handler
@@ -71,12 +82,14 @@ const UIController = (() => {
       playerOneName.value,
       playerOneLetter.value,
       playerOneColor.value,
+      "left",
     );
     const playerTwo = Player(
       playerTwoIcon.getAttribute("src"),
       playerTwoName.value,
       playerTwoLetter.value,
       playerTwoColor.value,
+      "right",
     );
 
     TicTacToeController.startGame(
@@ -108,6 +121,21 @@ const UIController = (() => {
       );
       rightProfileName.classList.add("profile-right__user-name--current");
       leftProfileName.classList.remove("profile-left__user-name--current");
+    }
+  };
+
+  const displayCurrentBoard = (pOne, pTwo) => {
+    const board = gameBoard.getGameArray();
+    console.log(board);
+    const gameBoardList = gameBoardEl.children;
+
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] !== null) {
+        gameBoardList[i].children[0].textContent = board[i][0];
+
+        gameBoardList[i].children[0].style.color =
+          board[i][1] === "left" ? pOne.getColor() : pTwo.getColor();
+      }
     }
   };
 
@@ -148,6 +176,10 @@ const UIController = (() => {
 
     for (let i = 0; i < gameBoardList.length; i++) {
       gameBoardList[i].children[0].textContent = "";
+
+      gameBoardList[i].children[0].classList.remove(
+        "game-board__cell--dancing",
+      );
     }
   };
 
@@ -339,6 +371,7 @@ const UIController = (() => {
 
   return {
     displayCurrentPlayer,
+    displayCurrentBoard,
     setDefaultPage,
     clearBoardDisplay,
     updatePlayerInformation,
@@ -398,7 +431,7 @@ const gameBoard = (() => {
 
   const attemptSelectCell = (index) => {
     if (gameArray[index] === null) {
-      gameArray[index] = currPlayer.getLetter();
+      gameArray[index] = [currPlayer.getLetter(), currPlayer.getDirection()];
       return true;
     } else {
       return false;
@@ -426,6 +459,7 @@ const TicTacToeController = (() => {
   let pTwo = null;
   let isInf = null;
   let goalRounds = null;
+  const gameBoardEl = UIController.getGameBoardEl();
 
   const checkWinCondition = (pOne, pTwo) => {
     if (pOne.getScore() === goalRounds) {
@@ -444,19 +478,24 @@ const TicTacToeController = (() => {
     pTwo = playerTwo;
     isInf = isInfinite;
     goalRounds = roundsToWin;
-    console.log(`${pOne}\n${pTwo}\n${isInf}\n${goalRounds}`);
+    console.log(
+      `${pOne.getName()}\n${pTwo.getName()}\n${isInf}\n${goalRounds}`,
+    );
     // setup players for both boards
     gameBoard.setPlayers(pOne, pTwo);
     UIController.updatePlayerInformation(pOne, pTwo);
     UIController.clearBoardDisplay();
     UIController.setGameWinCondition(goalRounds, isInf);
 
-    while (true) {
-      if (checkWinCondition() === null) {
-        doRound();
-      } else {
-        // do game end stuff
-      }
+    gameNextAction();
+  };
+
+  const gameNextAction = () => {
+    if (checkWinCondition(pOne, pTwo) === null) {
+      doRound();
+    } else {
+      // do game end stuff
+      gameBoardEl.removeEventListener("click");
     }
   };
 
@@ -470,8 +509,6 @@ const TicTacToeController = (() => {
       UIController.displayCurrentPlayer(false);
     }
 
-    const gameBoardEl = UIController.getGameBoardEl();
-
     gameBoardEl.addEventListener("click", (e) => {
       const target = e.target;
       const cellIndex = Array.prototype.indexOf.call(
@@ -479,7 +516,8 @@ const TicTacToeController = (() => {
         target,
       );
       console.log(cellIndex);
-      // gameBoard.attemptSelectCell(cellIndex);
+      gameBoard.attemptSelectCell(cellIndex);
+      UIController.displayCurrentBoard(pOne, pTwo);
     });
   };
 
