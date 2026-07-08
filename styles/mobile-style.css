@@ -5,7 +5,7 @@
 
   .wrapper {
     grid:
-      "header" minmax(min-content, 150px)
+      "header" minmax(min-content, 160px)
       "main-container" 1fr
       "footer" minmax(min-content, 80px)
       / 1fr;
