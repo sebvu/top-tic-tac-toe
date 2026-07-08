@@ -118,7 +118,7 @@ const UIController = (() => {
 
     setTimeout(() => {
       transitionContainer.classList.remove(activeClass);
-    }, animationDuration);
+    }, animationDuration - 100);
   };
 
   const displayCurrentPlayer = (is) => {
@@ -143,21 +143,28 @@ const UIController = (() => {
     }
   };
 
-  const displayCurrentBoard = () => {
+  const displayCurrentBoard = (oldBoard = null) => {
     const board = gameBoard.getGameArray();
     console.log(board);
     const gameBoardList = gameBoardEl.children;
 
     for (let i = 0; i < board.length; i++) {
-      if (board[i][0] !== null) {
-        gameBoardList[i].children[0].textContent = board[i][0];
+      const currentCell = gameBoardList[i].children[0];
 
-        gameBoardList[i].children[0].style.color =
+      if (board[i][0]) {
+        if (oldBoard && board[i][0] !== oldBoard[i][0]) {
+          currentCell.style.animationName = "openTransition";
+          currentCell.style.animationDuration = "0.5s";
+          console.log("ya");
+        }
+        currentCell.textContent = board[i][0];
+
+        currentCell.style.color =
           board[i][1] === "left"
             ? gameBoard.getPlayerOne().getColor()
             : gameBoard.getPlayerTwo().getColor();
       } else {
-        gameBoardList[i].children[0].textContent = "";
+        currentCell.textContent = "";
       }
     }
   };
@@ -527,8 +534,10 @@ const TicTacToeController = (() => {
       target,
     );
     console.log(cellIndex);
+    const preActionBoard = [...gameBoard.getGameArray()];
+    console.log(preActionBoard);
     if (cellIndex !== -1 && gameBoard.attemptSelectCell(cellIndex)) {
-      UIController.displayCurrentBoard();
+      UIController.displayCurrentBoard(preActionBoard);
       if (gameBoard.checkCompletionFromCell(cellIndex)) {
         const currPlayer = gameBoard.getCurrentTurn();
 
