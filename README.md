@@ -2,7 +2,7 @@
 
 ![Project Image](./assets/project-showcase-img.png)
 
-Courtesy of [The Odin Project](https://www.theodinproject.com/dashboard), this is my Tic Tac Toe project! 
+Courtesy of [The Odin Project](https://www.theodinproject.com/dashboard), this is my [Tic Tac Toe](https://www.theodinproject.com/lessons/node-path-javascript-tic-tac-toe) project submission! 
 
 > [!NOTE]
 > This project is *not* a reflection of what one's ability at this stage of The Odin Project should be like. If you are viewing this as a student of learning, see this as simply the potential of what could be achieved with enough creativity and time! I took too much time on this personally, do not attempt what I did.
