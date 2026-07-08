@@ -72,6 +72,7 @@ const UIController = (() => {
     ".game-status__win-condition",
   );
   const gameBoardEl = document.querySelector(".game-board");
+  const resetLocalStorageButton = document.querySelector(".footer__reset-data");
 
   const PLAYER_ONE_ICON_STORAGE = "pOneIcon";
   const PLAYER_ONE_NAME_STORAGE = "pOneName";
@@ -483,6 +484,17 @@ const UIController = (() => {
         }
       });
     });
+  });
+
+  resetLocalStorageButton.addEventListener("click", () => {
+    if (
+      window.confirm(
+        "Do you want to reset your saved profile data? Your session will refresh.",
+      )
+    ) {
+      localStorage.clear();
+      window.location.reload();
+    }
   });
 
   return {
