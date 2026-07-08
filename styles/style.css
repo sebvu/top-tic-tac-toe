@@ -730,6 +730,8 @@ body {
 
   color: var(--main-text-color);
   background-color: var(--background-color);
+
+  position: relative;
 }
 
 .game-board {
@@ -762,6 +764,27 @@ body {
   animation-name: dancingText;
   animation-duration: 3s;
   animation-iteration-count: infinite;
+}
+
+.game-board__transitionDiv {
+  aspect-ratio: 1 / 1;
+  width: auto;
+  height: 60vmin;
+
+  background-color: var(--background-color);
+
+  position: absolute;
+
+  pointer-events: none;
+
+  display: none;
+}
+
+.game-board__transitionDiv--active {
+  display: block;
+
+  animation-name: gameTransition;
+  animation-duration: 3s;
 }
 
 /* ========================= */

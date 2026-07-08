@@ -1,5 +1,5 @@
 function Player(iconURL, name, letter, color, direction) {
-  const score = 0;
+  let score = 0;
 
   const getIconURL = () => iconURL;
   const getName = () => name;
@@ -102,6 +102,25 @@ const UIController = (() => {
 
   // public functions
 
+  const newRoundAnimation = () => {
+    const transitionContainer = document.querySelector(
+      ".game-board__transitionDiv",
+    );
+
+    const animationDuration = 3000;
+    const activeClass = "game-board__transitionDiv--active";
+
+    transitionContainer.classList.add(activeClass);
+
+    setTimeout(() => {
+      displayCurrentBoard();
+    }, animationDuration / 2);
+
+    setTimeout(() => {
+      transitionContainer.classList.remove(activeClass);
+    }, animationDuration);
+  };
+
   const displayCurrentPlayer = (is) => {
     if (is === true) {
       leftProfileIcon.parentElement.classList.add(
@@ -124,17 +143,21 @@ const UIController = (() => {
     }
   };
 
-  const displayCurrentBoard = (pOne, pTwo) => {
+  const displayCurrentBoard = () => {
     const board = gameBoard.getGameArray();
     console.log(board);
     const gameBoardList = gameBoardEl.children;
 
     for (let i = 0; i < board.length; i++) {
-      if (board[i] !== null) {
+      if (board[i][0] !== null) {
         gameBoardList[i].children[0].textContent = board[i][0];
 
         gameBoardList[i].children[0].style.color =
-          board[i][1] === "left" ? pOne.getColor() : pTwo.getColor();
+          board[i][1] === "left"
+            ? gameBoard.getPlayerOne().getColor()
+            : gameBoard.getPlayerTwo().getColor();
+      } else {
+        gameBoardList[i].children[0].textContent = "";
       }
     }
   };
@@ -183,7 +206,10 @@ const UIController = (() => {
     }
   };
 
-  const updatePlayerInformation = (playerOne, playerTwo) => {
+  const updatePlayerInformation = () => {
+    const playerOne = gameBoard.getPlayerOne();
+    const playerTwo = gameBoard.getPlayerTwo();
+
     leftProfileIcon.setAttribute("src", playerOne.getIconURL());
     leftProfileName.textContent = playerOne.getName();
     leftProfileLetter.textContent = playerOne.getLetter();
@@ -370,6 +396,7 @@ const UIController = (() => {
   });
 
   return {
+    newRoundAnimation,
     displayCurrentPlayer,
     displayCurrentBoard,
     setDefaultPage,
@@ -394,7 +421,7 @@ const gameBoard = (() => {
   let playerTwo = null;
   let currPlayer = null;
 
-  let gameArray = new Array(MAX_SPOTS).fill(null);
+  let gameArray = new Array(MAX_SPOTS).fill([null, null]);
   // private
 
   const checkCompletionFromCell = (index) => {
@@ -403,13 +430,13 @@ const gameBoard = (() => {
 
     if (
       // verify column
-      (gameArray[colIndex * 3] !== null &&
-        gameArray[colIndex * 3] === gameArray[colIndex * 3 + 1] &&
-        gameArray[colIndex * 3 + 1] === gameArray[colIndex * 3 + 2]) ||
+      (gameArray[colIndex * 3][0] !== null &&
+        gameArray[colIndex * 3][0] === gameArray[colIndex * 3 + 1][0] &&
+        gameArray[colIndex * 3 + 1][0] === gameArray[colIndex * 3 + 2][0]) ||
       // verify row
-      (gameArray[0 + rowIndex] !== null &&
-        gameArray[0 + rowIndex] === gameArray[3 + rowIndex] &&
-        gameArray[3 + rowIndex] === gameArray[6 + rowIndex])
+      (gameArray[0 + rowIndex][0] !== null &&
+        gameArray[0 + rowIndex][0] === gameArray[3 + rowIndex][0] &&
+        gameArray[3 + rowIndex][0] === gameArray[6 + rowIndex][0])
     ) {
       return true;
     } else {
@@ -430,7 +457,7 @@ const gameBoard = (() => {
   };
 
   const attemptSelectCell = (index) => {
-    if (gameArray[index] === null) {
+    if (gameArray[index][0] === null) {
       gameArray[index] = [currPlayer.getLetter(), currPlayer.getDirection()];
       return true;
     } else {
@@ -443,13 +470,30 @@ const gameBoard = (() => {
   const getPlayerTwo = () => playerTwo;
   const getGameArray = () => gameArray;
 
+  const clearGameArray = () => {
+    gameArray = new Array(MAX_SPOTS).fill([null, null]);
+  };
+
+  const checkTie = () => {
+    for (let el of gameArray) {
+      if (el[0] === null) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   return {
+    checkCompletionFromCell,
+    flipCurrPlayer,
     setPlayers,
     attemptSelectCell,
     getCurrentTurn,
     getPlayerOne,
     getPlayerTwo,
     getGameArray,
+    clearGameArray,
+    checkTie,
   };
 })();
 
@@ -462,6 +506,8 @@ const TicTacToeController = (() => {
   const gameBoardEl = UIController.getGameBoardEl();
 
   const checkWinCondition = (pOne, pTwo) => {
+    console.log(pOne.getScore());
+    console.log(goalRounds);
     if (pOne.getScore() === goalRounds) {
       console.log(`${pOne.getName()} wins the game!`);
       return pOne;
@@ -473,29 +519,74 @@ const TicTacToeController = (() => {
     }
   };
 
+  // clickEventHandler
+  const clickBoardEventHandler = (e) => {
+    const target = e.target;
+    const cellIndex = Array.prototype.indexOf.call(
+      gameBoardEl.children,
+      target,
+    );
+    console.log(cellIndex);
+    if (cellIndex !== -1 && gameBoard.attemptSelectCell(cellIndex)) {
+      UIController.displayCurrentBoard();
+      if (gameBoard.checkCompletionFromCell(cellIndex)) {
+        const currPlayer = gameBoard.getCurrentTurn();
+
+        console.log(`${currPlayer.getName()} wins round!`);
+        currPlayer.increaseScore();
+        UIController.updatePlayerInformation();
+        gameNextAction();
+      } else if (gameBoard.checkTie()) {
+        console.log("tie");
+        gameNextAction(true);
+      } else {
+        gameBoard.flipCurrPlayer();
+        const currPlayer = gameBoard.getCurrentTurn();
+
+        UIController.setGameStatus(`${currPlayer.getName()} TURN`);
+        UIController.displayCurrentPlayer(currPlayer.getDirection() === "left");
+      }
+    }
+  };
+
   const startGame = (playerOne, playerTwo, isInfinite, roundsToWin) => {
     pOne = playerOne;
     pTwo = playerTwo;
     isInf = isInfinite;
-    goalRounds = roundsToWin;
+    if (isInf === true) {
+      goalRounds = 999999; // essentially infinity
+    } else {
+      goalRounds = roundsToWin * 1;
+    }
     console.log(
       `${pOne.getName()}\n${pTwo.getName()}\n${isInf}\n${goalRounds}`,
     );
     // setup players for both boards
     gameBoard.setPlayers(pOne, pTwo);
-    UIController.updatePlayerInformation(pOne, pTwo);
+    UIController.updatePlayerInformation();
     UIController.clearBoardDisplay();
     UIController.setGameWinCondition(goalRounds, isInf);
 
-    gameNextAction();
+    doRound();
   };
 
-  const gameNextAction = () => {
-    if (checkWinCondition(pOne, pTwo) === null) {
-      doRound();
+  const gameNextAction = (tie = false) => {
+    gameBoardEl.removeEventListener("click", clickBoardEventHandler);
+    const gameWinner = checkWinCondition(pOne, pTwo);
+    if (gameWinner === null || tie) {
+      UIController.setGameStatus(
+        tie ? "TIED" : `${gameBoard.getCurrentTurn().getName()} WON ROUND`,
+      );
+      gameBoard.flipCurrPlayer();
+      gameBoard.clearGameArray();
+      setTimeout(UIController.newRoundAnimation, 1000);
+      setTimeout(() => {
+        doRound();
+        console.log("next round");
+      }, 4000);
     } else {
+      console.log("winner");
       // do game end stuff
-      gameBoardEl.removeEventListener("click");
     }
   };
 
@@ -509,16 +600,7 @@ const TicTacToeController = (() => {
       UIController.displayCurrentPlayer(false);
     }
 
-    gameBoardEl.addEventListener("click", (e) => {
-      const target = e.target;
-      const cellIndex = Array.prototype.indexOf.call(
-        gameBoardEl.children,
-        target,
-      );
-      console.log(cellIndex);
-      gameBoard.attemptSelectCell(cellIndex);
-      UIController.displayCurrentBoard(pOne, pTwo);
-    });
+    gameBoardEl.addEventListener("click", clickBoardEventHandler);
   };
 
   return { startGame };

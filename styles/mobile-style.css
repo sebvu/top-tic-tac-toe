@@ -27,7 +27,8 @@
     width: calc(var(--size) * 5);
   }
 
-  .game-board {
+  .game-board,
+  .game-board__transitionDiv {
     height: 75vmin;
   }
 }
@@ -75,7 +76,8 @@
     align-items: center;
   }
 
-  .game-board {
+  .game-board,
+  .game-board__transitionDiv {
     height: 90vmin;
   }
 
@@ -105,7 +107,8 @@
     height: calc(var(--size) * 2.2);
   }
 
-  .game-board {
+  .game-board,
+  .game-board__transitionDiv {
     height: 45vmin;
   }
 }
