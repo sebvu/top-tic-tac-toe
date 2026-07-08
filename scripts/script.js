@@ -387,21 +387,49 @@ const UIController = (() => {
 
       console.log("Saving profile data for future sessions.");
 
-      localStorage.setItem(
-        PLAYER_ONE_ICON_STORAGE,
-        playerOneIcon.getAttribute("src"),
-      );
       localStorage.setItem(PLAYER_ONE_NAME_STORAGE, playerOneName.value);
       localStorage.setItem(PLAYER_ONE_LETTER_STORAGE, playerOneLetter.value);
       localStorage.setItem(PLAYER_ONE_COLOR_STORAGE, playerOneColor.value);
 
-      localStorage.setItem(
-        PLAYER_TWO_ICON_STORAGE,
-        playerTwoIcon.getAttribute("src"),
-      );
       localStorage.setItem(PLAYER_TWO_NAME_STORAGE, playerTwoName.value);
       localStorage.setItem(PLAYER_TWO_LETTER_STORAGE, playerTwoLetter.value);
       localStorage.setItem(PLAYER_TWO_COLOR_STORAGE, playerTwoColor.value);
+
+      // verify if mobile to avoid quotaexceederror
+      const detectMob = () => {
+        const toMatch = [
+          /Android/i,
+          /webOS/i,
+          /iPhone/i,
+          /iPad/i,
+          /iPod/i,
+          /BlackBerry/i,
+          /Windows Phone/i,
+        ];
+
+        const someMatch = toMatch.some((toMatchItem) => {
+          return navigator.userAgent.match(toMatchItem);
+        });
+
+        const potentialMobileSize =
+          window.innerWidth <= 800 && window.innerHeight <= 600;
+
+        return someMatch || potentialMobileSize;
+      };
+
+      if (!detectMob()) {
+        console.log("mobile not detected, saving icons");
+        localStorage.setItem(
+          PLAYER_TWO_ICON_STORAGE,
+          playerTwoIcon.getAttribute("src"),
+        );
+        localStorage.setItem(
+          PLAYER_ONE_ICON_STORAGE,
+          playerOneIcon.getAttribute("src"),
+        );
+      } else {
+        console.log("mobile detected, not saving icons to localstorage");
+      }
 
       toggleGlowingIcon(false);
       closeDialog();
