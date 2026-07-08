@@ -164,6 +164,13 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+
+  padding-left: 1rem;
+}
+
+.profile-left__letter {
+  border-right: 2px solid var(--accent-color);
+  padding-right: 1rem;
 }
 
 .profile-left__user-name--current {
@@ -241,6 +248,13 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+
+  padding-right: 1rem;
+}
+
+.profile-right__letter {
+  border-left: 2px solid var(--accent-color);
+  padding-left: 1rem;
 }
 
 .profile-right__user-name--current {
