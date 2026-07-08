@@ -99,6 +99,14 @@
     --base-size: 0.4rem;
   }
 
+  .wrapper {
+    grid:
+      "header" minmax(min-content, 200px)
+      "main-container" 1fr
+      "footer" min-content
+      / 1fr;
+  }
+
   .dialog {
     border-radius: 0;
   }
@@ -109,6 +117,11 @@
 
   .game-board,
   .game-board__transitionDiv {
-    height: 45vmin;
+    height: 40vmin;
+    font-size: var(--size) * 0.1;
+  }
+
+  .footer {
+    padding: 0.1rem;
   }
 }

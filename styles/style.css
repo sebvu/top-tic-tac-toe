@@ -844,4 +844,7 @@ body {
 
 .footer__reset-data:hover,
 .footer__reset-data:focus {
+  transform: scale(1.05, 1.05);
+  transition-duration: 0.2s;
+  box-shadow: 0 0 1rem var(--accent-color);
 }
