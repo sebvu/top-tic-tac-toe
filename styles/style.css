@@ -116,6 +116,10 @@ body {
 
 .game-status__text {
   flex: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   text-align: center;
 }
 

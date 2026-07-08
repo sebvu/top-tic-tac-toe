@@ -107,6 +107,13 @@ const UIController = (() => {
       ".game-board__transitionDiv",
     );
 
+    // disabled to avoid bugs during transition
+    const startButton = document.querySelector(
+      ".dashboard-footer__button--start",
+    );
+
+    startButton.setAttribute("disabled", "");
+
     const animationDuration = 3000;
     const activeClass = "game-board__transitionDiv--active";
 
@@ -118,6 +125,7 @@ const UIController = (() => {
 
     setTimeout(() => {
       transitionContainer.classList.remove(activeClass);
+      startButton.removeAttribute("disabled");
     }, animationDuration - 100);
   };
 
@@ -145,17 +153,19 @@ const UIController = (() => {
 
   const displayCurrentBoard = (oldBoard = null) => {
     const board = gameBoard.getGameArray();
-    console.log(board);
     const gameBoardList = gameBoardEl.children;
+
+    console.log(oldBoard);
+    console.log(gameBoard.getGameArray());
 
     for (let i = 0; i < board.length; i++) {
       const currentCell = gameBoardList[i].children[0];
+      currentCell.style.animationName = "";
 
       if (board[i][0]) {
         if (oldBoard && board[i][0] !== oldBoard[i][0]) {
           currentCell.style.animationName = "openTransition";
           currentCell.style.animationDuration = "0.5s";
-          console.log("ya");
         }
         currentCell.textContent = board[i][0];
 
@@ -205,11 +215,11 @@ const UIController = (() => {
     const gameBoardList = gameBoardEl.children;
 
     for (let i = 0; i < gameBoardList.length; i++) {
-      gameBoardList[i].children[0].textContent = "";
+      const cell = gameBoardList[i].children[0];
 
-      gameBoardList[i].children[0].classList.remove(
-        "game-board__cell--dancing",
-      );
+      cell.style.animationName = "";
+      cell.textContent = "";
+      cell.classList.remove("game-board__cell--dancing");
     }
   };
 
@@ -258,17 +268,15 @@ const UIController = (() => {
     localStorage.setItem(STORAGE_THEME_NAME, newTheme);
   };
 
-  const toggleGlowingIcon = (force = false) => {
+  const toggleGlowingIcon = (on = true) => {
     const startButton = document.querySelector(
       ".dashboard-footer__button--start",
     );
 
     const className = "dashboard-footer__button--start-glowing";
 
-    if (!force) {
-      startButton.classList.contains(className)
-        ? startButton.classList.remove(className)
-        : startButton.classList.add(className);
+    if (!on) {
+      startButton.classList.remove(className);
     } else {
       startButton.classList.add(className);
     }
@@ -316,7 +324,7 @@ const UIController = (() => {
 
     if (dialogForm.checkValidity()) {
       console.log("Validity is good. Starting game.");
-      toggleGlowingIcon();
+      toggleGlowingIcon(false);
       closeDialog();
       startGame(); // sending request to gameboard
     } else {
@@ -513,8 +521,6 @@ const TicTacToeController = (() => {
   const gameBoardEl = UIController.getGameBoardEl();
 
   const checkWinCondition = (pOne, pTwo) => {
-    console.log(pOne.getScore());
-    console.log(goalRounds);
     if (pOne.getScore() === goalRounds) {
       console.log(`${pOne.getName()} wins the game!`);
       return pOne;
@@ -535,7 +541,6 @@ const TicTacToeController = (() => {
     );
     console.log(cellIndex);
     const preActionBoard = [...gameBoard.getGameArray()];
-    console.log(preActionBoard);
     if (cellIndex !== -1 && gameBoard.attemptSelectCell(cellIndex)) {
       UIController.displayCurrentBoard(preActionBoard);
       if (gameBoard.checkCompletionFromCell(cellIndex)) {
@@ -575,6 +580,7 @@ const TicTacToeController = (() => {
     UIController.updatePlayerInformation();
     UIController.clearBoardDisplay();
     UIController.setGameWinCondition(goalRounds, isInf);
+    gameBoard.clearGameArray();
 
     doRound();
   };
@@ -594,8 +600,7 @@ const TicTacToeController = (() => {
         console.log("next round");
       }, 4000);
     } else {
-      console.log("winner");
-      // do game end stuff
+      UIController.setGameStatus(`${gameWinner.getName()} WON!!!!`);
     }
   };
 
