@@ -1,12 +1,19 @@
-html,
+html {
+  width: 100%;
+  overflow: hidden;
+}
+
 body {
+  width: 100%;
   height: 100%;
+  position: fixed;
+  overflow-y: scroll;
 }
 
 .wrapper {
   display: grid;
   grid:
-    "header" minmax(min-content, 200px)
+    "header" minmax(min-content, 250px)
     "main-container" 1fr
     "footer" minmax(min-content, 100px)
     / 1fr;
