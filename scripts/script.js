@@ -29,7 +29,21 @@ function Player(iconURL, name, letter, color, direction) {
 const UIController = (() => {
   const STORAGE_THEME_NAME = "theme";
   const THEME_ATTR = "data-theme";
+
+  const PLAYER_ONE_ICON_STORAGE = "pOneIcon";
+  const PLAYER_ONE_NAME_STORAGE = "pOneName";
+  const PLAYER_ONE_LETTER_STORAGE = "pOneLetter";
+  const PLAYER_ONE_COLOR_STORAGE = "pOneColor";
+
+  const PLAYER_TWO_ICON_STORAGE = "pTwoIcon";
+  const PLAYER_TWO_NAME_STORAGE = "pTwoName";
+  const PLAYER_TWO_LETTER_STORAGE = "pTwoLetter";
+  const PLAYER_TWO_COLOR_STORAGE = "pTwoColor";
+
   const dialogElement = document.querySelector(".dialog");
+  const dialogSubmitButton = document.querySelector(
+    ".dialog__form-submit-button",
+  );
   const dialogForm = document.querySelector(".dialog__form");
   const playerIconLabels = document.querySelectorAll(
     ".player-p--avatar > label",
@@ -73,17 +87,6 @@ const UIController = (() => {
   );
   const gameBoardEl = document.querySelector(".game-board");
   const resetLocalStorageButton = document.querySelector(".footer__reset-data");
-
-  const PLAYER_ONE_ICON_STORAGE = "pOneIcon";
-  const PLAYER_ONE_NAME_STORAGE = "pOneName";
-  const PLAYER_ONE_LETTER_STORAGE = "pOneLetter";
-  const PLAYER_ONE_COLOR_STORAGE = "pOneColor";
-
-  const PLAYER_TWO_ICON_STORAGE = "pTwoIcon";
-  const PLAYER_TWO_NAME_STORAGE = "pTwoName";
-  const PLAYER_TWO_LETTER_STORAGE = "pTwoLetter";
-  const PLAYER_TWO_COLOR_STORAGE = "pTwoColor";
-
   // private function
 
   const startGame = () => {
@@ -495,6 +498,10 @@ const UIController = (() => {
       localStorage.clear();
       window.location.reload();
     }
+  });
+
+  dialogSubmitButton.addEventListener("click", () => {
+    dialogForm.requestSubmit();
   });
 
   return {
