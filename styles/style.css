@@ -764,6 +764,10 @@ body {
   background-color: var(--background-color);
 }
 
+.game-board__cell-container--winner {
+  box-shadow: inset 0 0 3rem var(--accent-color);
+}
+
 .game-board__cell {
   --size: 18vmin;
 

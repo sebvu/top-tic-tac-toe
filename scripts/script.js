@@ -102,6 +102,18 @@ const UIController = (() => {
 
   // public functions
 
+  const highlightCells = (cellsArr) => {
+    const cells = gameBoardEl.children;
+
+    console.log(cellsArr);
+    for (let index of cellsArr) {
+      cells[index].classList.add("game-board__cell-container--winner");
+      cells[index].children[0].style.animationName = "";
+      cells[index].children[0].style.animationDuration = "";
+      cells[index].children[0].classList.add("game-board__cell--dancing");
+    }
+  };
+
   const newRoundAnimation = () => {
     const transitionContainer = document.querySelector(
       ".game-board__transitionDiv",
@@ -159,8 +171,14 @@ const UIController = (() => {
     console.log(gameBoard.getGameArray());
 
     for (let i = 0; i < board.length; i++) {
+      const currentCellContainer = gameBoardList[i];
+      currentCellContainer.classList.remove(
+        "game-board__cell-container--winner",
+      );
+
       const currentCell = gameBoardList[i].children[0];
       currentCell.style.animationName = "";
+      currentCell.classList.remove("game-board__cell--dancing");
 
       if (board[i][0]) {
         if (oldBoard && board[i][0] !== oldBoard[i][0]) {
@@ -215,8 +233,10 @@ const UIController = (() => {
     const gameBoardList = gameBoardEl.children;
 
     for (let i = 0; i < gameBoardList.length; i++) {
+      const cellContainer = gameBoardList[i];
       const cell = gameBoardList[i].children[0];
 
+      cellContainer.classList.remove("game-board__cell-container--winner");
       cell.style.animationName = "";
       cell.textContent = "";
       cell.classList.remove("game-board__cell--dancing");
@@ -411,6 +431,7 @@ const UIController = (() => {
   });
 
   return {
+    highlightCells,
     newRoundAnimation,
     displayCurrentPlayer,
     displayCurrentBoard,
@@ -442,9 +463,9 @@ const gameBoard = (() => {
   const checkCompletionFromCell = (index) => {
     const checkIndexes = () => {
       return (
-        winningIndexes[0] !== null &&
-        winningIndexes[0] === winningIndexes[1] &&
-        winningIndexes[1] === winningIndexes[2]
+        gameArray[winningIndexes[0]][0] !== null &&
+        gameArray[winningIndexes[0]][0] === gameArray[winningIndexes[1]][0] &&
+        gameArray[winningIndexes[1]][0] === gameArray[winningIndexes[2]][0]
       );
     };
 
@@ -453,26 +474,18 @@ const gameBoard = (() => {
     let winningIndexes = [];
 
     // verify column
-    winningIndexes = [
-      gameArray[colIndex * 3][0],
-      gameArray[colIndex * 3 + 1][0],
-      gameArray[colIndex * 3 + 2][0],
-    ];
+    winningIndexes = [colIndex * 3, colIndex * 3 + 1, colIndex * 3 + 2];
     if (checkIndexes()) return [true, winningIndexes];
 
     // verify row
-    winningIndexes = [
-      gameArray[0 + rowIndex][0],
-      gameArray[3 + rowIndex][0],
-      gameArray[6 + rowIndex][0],
-    ];
+    winningIndexes = [0 + rowIndex, 3 + rowIndex, 6 + rowIndex];
     if (checkIndexes()) return [true, winningIndexes];
 
     // verify diagonals
     if (index % 2 === 0) {
-      winningIndexes = [gameArray[0][0], gameArray[4][0], gameArray[8][0]];
+      winningIndexes = [0, 4, 8];
       if (checkIndexes()) return [true, winningIndexes];
-      winningIndexes = [gameArray[2][0], gameArray[4][0], gameArray[6][0]];
+      winningIndexes = [2, 4, 6];
       if (checkIndexes()) return [true, winningIndexes];
     }
 
@@ -563,8 +576,11 @@ const TicTacToeController = (() => {
     const preActionBoard = [...gameBoard.getGameArray()];
     if (cellIndex !== -1 && gameBoard.attemptSelectCell(cellIndex)) {
       UIController.displayCurrentBoard(preActionBoard);
-      if (gameBoard.checkCompletionFromCell(cellIndex)) {
+      const currentRoundResult = gameBoard.checkCompletionFromCell(cellIndex);
+      if (currentRoundResult[0]) {
         const currPlayer = gameBoard.getCurrentTurn();
+
+        UIController.highlightCells(currentRoundResult[1]);
 
         console.log(`${currPlayer.getName()} wins round!`);
         currPlayer.increaseScore();
