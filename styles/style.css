@@ -91,14 +91,26 @@ body {
 
 .game-status {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
 
   margin: 1rem 0;
 
   border-left: 3px solid var(--accent-color);
   border-radius: 10% / 50%;
   border-right: 3px solid var(--accent-color);
+
+  overflow: hidden;
+}
+
+.game-status__win-condition {
+  border-bottom: 2px solid var(--accent-color);
+  border-top: 2px solid var(--accent-color);
+
+  border-radius: 0 0 1rem 1rem;
+
+  text-align: center;
 }
 
 .game-status__text {
