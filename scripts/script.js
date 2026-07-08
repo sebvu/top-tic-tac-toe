@@ -73,6 +73,16 @@ const UIController = (() => {
   );
   const gameBoardEl = document.querySelector(".game-board");
 
+  const PLAYER_ONE_ICON_STORAGE = "pOneIcon";
+  const PLAYER_ONE_NAME_STORAGE = "pOneName";
+  const PLAYER_ONE_LETTER_STORAGE = "pOneLetter";
+  const PLAYER_ONE_COLOR_STORAGE = "pOneColor";
+
+  const PLAYER_TWO_ICON_STORAGE = "pTwoIcon";
+  const PLAYER_TWO_NAME_STORAGE = "pTwoName";
+  const PLAYER_TWO_LETTER_STORAGE = "pTwoLetter";
+  const PLAYER_TWO_COLOR_STORAGE = "pTwoColor";
+
   // private function
 
   const startGame = () => {
@@ -322,6 +332,32 @@ const UIController = (() => {
 
   const getGameBoardEl = () => gameBoardEl;
 
+  const dialogLoadPastProfiles = () => {
+    const pOneIcon = localStorage.getItem(PLAYER_ONE_ICON_STORAGE);
+    if (pOneIcon) playerOneIcon.setAttribute("src", pOneIcon);
+
+    const pOneName = localStorage.getItem(PLAYER_ONE_NAME_STORAGE);
+    if (pOneName) playerOneName.value = pOneName;
+
+    const pOneLetter = localStorage.getItem(PLAYER_ONE_LETTER_STORAGE);
+    if (pOneName) playerOneLetter.value = pOneLetter;
+
+    const pOneColor = localStorage.getItem(PLAYER_ONE_COLOR_STORAGE);
+    if (pOneName) playerOneColor.value = pOneColor;
+
+    const pTwoIcon = localStorage.getItem(PLAYER_TWO_ICON_STORAGE);
+    if (pTwoIcon) playerTwoIcon.setAttribute("src", pTwoIcon);
+
+    const pTwoName = localStorage.getItem(PLAYER_TWO_NAME_STORAGE);
+    if (pTwoName) playerTwoName.value = pTwoName;
+
+    const pTwoLetter = localStorage.getItem(PLAYER_TWO_LETTER_STORAGE);
+    if (pTwoName) playerTwoLetter.value = pTwoLetter;
+
+    const pTwoColor = localStorage.getItem(PLAYER_TWO_COLOR_STORAGE);
+    if (pTwoName) playerTwoColor.value = pTwoColor;
+  };
+
   // dialog specific event listeners
 
   isInfinite.addEventListener("change", () => {
@@ -344,6 +380,25 @@ const UIController = (() => {
 
     if (dialogForm.checkValidity()) {
       console.log("Validity is good. Starting game.");
+
+      console.log("Saving profile data for future sessions.");
+
+      localStorage.setItem(
+        PLAYER_ONE_ICON_STORAGE,
+        playerOneIcon.getAttribute("src"),
+      );
+      localStorage.setItem(PLAYER_ONE_NAME_STORAGE, playerOneName.value);
+      localStorage.setItem(PLAYER_ONE_LETTER_STORAGE, playerOneLetter.value);
+      localStorage.setItem(PLAYER_ONE_COLOR_STORAGE, playerOneColor.value);
+
+      localStorage.setItem(
+        PLAYER_TWO_ICON_STORAGE,
+        playerTwoIcon.getAttribute("src"),
+      );
+      localStorage.setItem(PLAYER_TWO_NAME_STORAGE, playerTwoName.value);
+      localStorage.setItem(PLAYER_TWO_LETTER_STORAGE, playerTwoLetter.value);
+      localStorage.setItem(PLAYER_TWO_COLOR_STORAGE, playerTwoColor.value);
+
       toggleGlowingIcon(false);
       closeDialog();
       startGame(); // sending request to gameboard
@@ -447,6 +502,7 @@ const UIController = (() => {
     closeDialog,
     getStartGameDialog,
     getGameBoardEl,
+    dialogLoadPastProfiles,
   };
 })();
 
@@ -637,6 +693,7 @@ const TicTacToeController = (() => {
       }, 4000);
     } else {
       UIController.setGameStatus(`${gameWinner.getName()} WON!!!!`);
+      UIController.toggleGlowingIcon(true);
     }
   };
 
@@ -661,6 +718,7 @@ function main() {
   UIController.removeDialog();
   UIController.setDefaultPage();
   UIController.setPreviousTheme();
+  UIController.dialogLoadPastProfiles();
 
   const themeToggler = document.querySelector(
     ".dashboard-footer__button--theme",
