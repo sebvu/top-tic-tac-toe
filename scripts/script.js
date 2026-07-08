@@ -57,6 +57,9 @@ const UIController = (() => {
   const roundsToWin = document.querySelector("#rounds");
 
   const gameStatus = document.querySelector(".game-status__text");
+  const gameWinCondition = document.querySelector(
+    ".game-status__win-condition",
+  );
   const gameBoardEl = document.querySelector(".game-board");
 
   // private function
@@ -124,14 +127,18 @@ const UIController = (() => {
     }
 
     setGameStatus("WAITING FOR GAME");
+    setGameWinCondition("N/A");
     leftProfileIcon.setAttribute("src", "./assets/icons/player-one.png");
     rightProfileIcon.setAttribute("src", "./assets/icons/player-two.png");
 
-    leftProfileName.textContent = "N/A";
-    rightProfileName.textContent = "N/A";
+    leftProfileName.textContent = "Player One";
+    rightProfileName.textContent = "Player Two";
 
     leftProfileLetter.textContent = "X";
     rightProfileLetter.textContent = "O";
+
+    leftProfileLetter.style.color = "cyan";
+    rightProfileLetter.style.color = "red";
 
     leftProfileScore.textContent = "0";
     rightProfileScore.textContent = "0";
@@ -159,6 +166,14 @@ const UIController = (() => {
     rightProfileLetter.textContent = playerTwo.getLetter();
     rightProfileLetter.style.color = playerTwo.getColor();
     rightProfileScore.textContent = playerTwo.getScore();
+  };
+
+  const setGameWinCondition = (rounds, isInf = false) => {
+    if (isInf) {
+      gameWinCondition.textContent = "INF ROUNDS";
+    } else {
+      gameWinCondition.textContent = `WIN ${rounds} ROUNDS`;
+    }
   };
 
   const setGameStatus = (status) => {
@@ -330,6 +345,7 @@ const UIController = (() => {
     setDefaultPage,
     clearBoardDisplay,
     updatePlayerInformation,
+    setGameWinCondition,
     setGameStatus,
     setPreviousTheme,
     toggleTheme,
@@ -436,6 +452,7 @@ const TicTacToeController = (() => {
     gameBoard.setPlayers(pOne, pTwo);
     UIController.updatePlayerInformation(pOne, pTwo);
     UIController.clearBoardDisplay();
+    UIController.setGameWinCondition(goalRounds, isInf);
 
     while (true) {
       if (checkWinCondition() === null) {
