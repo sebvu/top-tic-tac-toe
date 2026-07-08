@@ -410,8 +410,9 @@ body {
   left: 3%;
 }
 
-.dialog__exit-button-svg {
-  pointer-events: none;
+.dialog__exit-button-svg:hover,
+.dialog__exit-button-svg:focus {
+  transform: scale(1.1);
 }
 
 .dialog__header,
