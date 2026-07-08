@@ -440,23 +440,43 @@ const gameBoard = (() => {
   // private
 
   const checkCompletionFromCell = (index) => {
-    let rowIndex = index % 3;
-    let colIndex = Math.floor(index / 3);
+    const checkIndexes = () => {
+      return (
+        winningIndexes[0] !== null &&
+        winningIndexes[0] === winningIndexes[1] &&
+        winningIndexes[1] === winningIndexes[2]
+      );
+    };
 
-    if (
-      // verify column
-      (gameArray[colIndex * 3][0] !== null &&
-        gameArray[colIndex * 3][0] === gameArray[colIndex * 3 + 1][0] &&
-        gameArray[colIndex * 3 + 1][0] === gameArray[colIndex * 3 + 2][0]) ||
-      // verify row
-      (gameArray[0 + rowIndex][0] !== null &&
-        gameArray[0 + rowIndex][0] === gameArray[3 + rowIndex][0] &&
-        gameArray[3 + rowIndex][0] === gameArray[6 + rowIndex][0])
-    ) {
-      return true;
-    } else {
-      return false;
+    const rowIndex = index % 3;
+    const colIndex = Math.floor(index / 3);
+    let winningIndexes = [];
+
+    // verify column
+    winningIndexes = [
+      gameArray[colIndex * 3][0],
+      gameArray[colIndex * 3 + 1][0],
+      gameArray[colIndex * 3 + 2][0],
+    ];
+    if (checkIndexes()) return [true, winningIndexes];
+
+    // verify row
+    winningIndexes = [
+      gameArray[0 + rowIndex][0],
+      gameArray[3 + rowIndex][0],
+      gameArray[6 + rowIndex][0],
+    ];
+    if (checkIndexes()) return [true, winningIndexes];
+
+    // verify diagonals
+    if (index % 2 === 0) {
+      winningIndexes = [gameArray[0][0], gameArray[4][0], gameArray[8][0]];
+      if (checkIndexes()) return [true, winningIndexes];
+      winningIndexes = [gameArray[2][0], gameArray[4][0], gameArray[6][0]];
+      if (checkIndexes()) return [true, winningIndexes];
     }
+
+    return false;
   };
 
   const flipCurrPlayer = () => {
