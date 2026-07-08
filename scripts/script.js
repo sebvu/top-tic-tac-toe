@@ -79,9 +79,6 @@ const UIController = (() => {
       playerTwoColor.value,
     );
 
-    const isInfinite = document.querySelector("#infinite").checked;
-    const roundsToWin = document.querySelector("#rounds").value;
-
     TicTacToeController.startGame(
       playerOne,
       playerTwo,
