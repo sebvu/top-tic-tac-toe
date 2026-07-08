@@ -673,6 +673,14 @@ body {
   text-align: center;
 }
 
+.setting-p--rounds > label:has(+ input:disabled) {
+  color: rgb(from var(--text-color) r g b / 90%);
+}
+
+.setting-p--rounds > input:disabled {
+  background-color: rgb(from var(--form-input-color) r g b / 75%);
+}
+
 .dialog__form-container--submit {
   align-items: center;
 }

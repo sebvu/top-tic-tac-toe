@@ -53,6 +53,9 @@ const UIController = (() => {
   const rightProfileLetter = document.querySelector(".profile-right__letter");
   const rightProfileScore = document.querySelector(".profile-right__score");
 
+  const isInfinite = document.querySelector("#infinite");
+  const roundsToWin = document.querySelector("#rounds");
+
   const gameStatus = document.querySelector(".game-status__text");
   const gameBoardEl = document.querySelector(".game-board");
 
@@ -79,8 +82,8 @@ const UIController = (() => {
     TicTacToeController.startGame(
       playerOne,
       playerTwo,
-      isInfinite,
-      roundsToWin,
+      isInfinite.checked,
+      roundsToWin.value,
     );
   };
 
@@ -206,12 +209,23 @@ const UIController = (() => {
     /* dialog must exist in dom before opening */
     document.querySelector("body").appendChild(dialogElement);
 
+    // automatically trigger the infinite round disabled styling
+    isInfinite.dispatchEvent(new Event("change", { bubbles: true }));
+
     return dialogElement;
   };
 
   const getGameBoardEl = () => gameBoardEl;
 
   // dialog specific event listeners
+
+  isInfinite.addEventListener("change", () => {
+    if (isInfinite.checked === true) {
+      roundsToWin.setAttribute("disabled", "");
+    } else {
+      roundsToWin.removeAttribute("disabled");
+    }
+  });
 
   dialogForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -400,6 +414,18 @@ const TicTacToeController = (() => {
   let isInf = null;
   let goalRounds = null;
 
+  const checkWinCondition = (pOne, pTwo) => {
+    if (pOne.getScore() === goalRounds) {
+      console.log(`${pOne.getName()} wins the game!`);
+      return pOne;
+    } else if (pTwo.getScore() === goalRounds) {
+      console.log(`${pTwo.getName()} wins the game!`);
+      return pTwo;
+    } else {
+      return null;
+    }
+  };
+
   const startGame = (playerOne, playerTwo, isInfinite, roundsToWin) => {
     pOne = playerOne;
     pTwo = playerTwo;
@@ -411,7 +437,13 @@ const TicTacToeController = (() => {
     UIController.updatePlayerInformation(pOne, pTwo);
     UIController.clearBoardDisplay();
 
-    doRound();
+    while (true) {
+      if (checkWinCondition() === null) {
+        doRound();
+      } else {
+        // do game end stuff
+      }
+    }
   };
 
   const doRound = () => {
