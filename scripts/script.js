@@ -45,10 +45,12 @@ const UIController = (() => {
 
   const leftProfileIcon = document.querySelector(".profile-left__image");
   const leftProfileName = document.querySelector(".profile-left__user-name");
+  const leftProfileLetter = document.querySelector(".profile-left__letter");
   const leftProfileScore = document.querySelector(".profile-left__score");
 
   const rightProfileIcon = document.querySelector(".profile-right__image");
   const rightProfileName = document.querySelector(".profile-right__user-name");
+  const rightProfileLetter = document.querySelector(".profile-right__letter");
   const rightProfileScore = document.querySelector(".profile-right__score");
 
   const gameStatus = document.querySelector(".game-status__text");
@@ -125,6 +127,9 @@ const UIController = (() => {
     leftProfileName.textContent = "N/A";
     rightProfileName.textContent = "N/A";
 
+    leftProfileLetter.textContent = "X";
+    rightProfileLetter.textContent = "O";
+
     leftProfileScore.textContent = "0";
     rightProfileScore.textContent = "0";
 
@@ -142,10 +147,14 @@ const UIController = (() => {
   const updatePlayerInformation = (playerOne, playerTwo) => {
     leftProfileIcon.setAttribute("src", playerOne.getIconURL());
     leftProfileName.textContent = playerOne.getName();
+    leftProfileLetter.textContent = playerOne.getLetter();
+    leftProfileLetter.style.color = playerOne.getColor();
     leftProfileScore.textContent = playerOne.getScore();
 
     rightProfileIcon.setAttribute("src", playerTwo.getIconURL());
     rightProfileName.textContent = playerTwo.getName();
+    rightProfileLetter.textContent = playerTwo.getLetter();
+    rightProfileLetter.style.color = playerTwo.getColor();
     rightProfileScore.textContent = playerTwo.getScore();
   };
 
