@@ -182,8 +182,6 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-
-  padding-left: 1rem;
 }
 
 .profile-left__letter {
@@ -207,6 +205,10 @@ body {
 .profile-left__user-name,
 .profile-left__score {
   color: var(--text-color);
+}
+
+.profile-left__score {
+  padding-left: 1rem;
 }
 
 /* dashboard main profile right */
@@ -266,8 +268,6 @@ body {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-
-  padding-right: 1rem;
 }
 
 .profile-right__letter {
@@ -291,6 +291,10 @@ body {
 .profile-right__user-name,
 .profile-right__score {
   color: var(--text-color);
+}
+
+.profile-right__score {
+  padding-right: 1rem;
 }
 
 /* dashboard-footer styling */
