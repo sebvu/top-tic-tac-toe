@@ -444,13 +444,6 @@ body {
   background-color: var(--form-input-color);
 }
 
-.dialog__form-container {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  flex-direction: column;
-}
-
 .dialog__form-container--player-one {
   grid-area: player-one;
   width: 90%;
